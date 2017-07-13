@@ -528,6 +528,7 @@ namespace Settings
 	{
 		extern bool enabled;
 		extern ButtonCode_t key;
+		extern bool keybindEnabled;
 
 		namespace Filters
 		{

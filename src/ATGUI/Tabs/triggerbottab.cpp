@@ -13,7 +13,7 @@ void Triggerbot::RenderTab()
 			ImGui::Columns(2, NULL, true);
 			{
 				ImGui::ItemSize(ImVec2(0.0f, 0.0f), 0.0f);
-				ImGui::Text(XORSTR("Trigger Key"));
+				ImGui::Checkbox(XORSTR("Enable"), &Settings::Triggerbot::keybindEnabled);
 			}
 			ImGui::NextColumn();
 			{
