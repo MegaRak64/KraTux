@@ -51,11 +51,11 @@ sudo emerge cmake dev-vcs/git gdb libsdl2 mesa lua xdotool patchelf
 #### Download Fuzion:
 
 ```bash
-git clone --recursive https://github.com/LWSS/Fuzion
+git clone --recursive https://github.com/HelixCodes/KraTux
 ```
 
 ```bash
-cd Fuzion
+cd KraTux
 ```
 
 ===================
@@ -129,7 +129,7 @@ If you wish to unload the hack from the game, you can do so by entering the comm
 Configs are stored in a hidden directory in your home folder. Specifically 
 
 ```
-~/.config/Fuzion
+~/.config/KraTux
 ```
 
 Each `config.json` is stored in a seperately named folder (The name you see in-game, in the config window). 
