@@ -34,11 +34,12 @@ typedef bool (*LineGoesThroughSmokeFn) (Vector, Vector, int16_t);
 typedef void (*InitKeyValuesFn) (KeyValues*, const char*);
 typedef void (*LoadFromBufferFn) (KeyValues*, const char*, const char*, void*, const char*, void*);
 typedef ICommandLine* (*CommandLineFn) (void);
-//typedef void (*RandomSeedFn)(int);
-//typedef float (*RandomFloatFn)(float, float);
-//typedef float (*RandomFloatExpFn)(float, float, float);
-//typedef int (*RandomIntFn)(int, int);
-//typedef float (*RandomGaussianFloatFn)(float, float);
+typedef void (*RandomSeedFn)(int);
+typedef float (*RandomFloatFn)(float, float);
+typedef float (*RandomFloatExpFn)(float, float, float);
+typedef int (*RandomIntFn)(int, int);
+typedef float (*RandomGaussianFloatFn)(float, float);
+typedef void (*LoadSkyFn) (const char*);
 typedef bool (*SetNamedSkyBoxFn)(const char*);
 
 enum class TeamID : int
@@ -1829,8 +1830,6 @@ const std::map<ItemDefinitionIndex, DefItem_t> ItemDefinitionIndexMap = {
 
 #define MAXSTUDIOBONES 128
 #define BONE_USED_BY_HITBOX 0x100
-
-#define MASK_SHOT	(CONTENTS_SOLID|CONTENTS_MOVEABLE|CONTENTS_MONSTER|CONTENTS_WINDOW|CONTENTS_DEBRIS|CONTENTS_HITBOX)
 
 // NOTE: These are stored in a short in the engine now.  Don't use more than 16 bits
 #define SURF_LIGHT		0x0001		// value will hold the light strength
