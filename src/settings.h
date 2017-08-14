@@ -75,7 +75,16 @@ enum class AntiAimType_Y : int
 	LOWERBODY,
 	LBYONGROUND,
 	LUA_UNCLAMPED,
-	LUA_UNCLAMPED2
+	LUA_UNCLAMPED2,
+	CUSTOM1,
+	CUSTOM2,
+};
+
+enum class AntiAim_CustomModes : int
+{
+	NORMAL,
+	SPIN,
+	JITTER,
 };
 
 enum class AntiAimType_X : int
@@ -91,6 +100,13 @@ enum class AntiAimType_X : int
 	ANGEL_DOWN,
 	ANGEL_UP,
 	LUA_UNCLAMPED,
+	CUSTOM,
+};
+
+enum class AntiAim_CustomPitches : int
+{
+	NORMAL,
+	JITTER,
 };
 
 enum class ChamsType : int
@@ -615,6 +631,7 @@ namespace Settings
 			extern bool enabled;
 			extern AntiAimType_Y type;
 			extern AntiAimType_Y typeFake;
+			extern bool dynamic;
 			extern bool antiResolver;
 		}
 
@@ -637,8 +654,45 @@ namespace Settings
 			extern char scriptY[512];
 			extern char scriptY2[512];
 		}
-	}
+		
+		
+	namespace Custom
+        {
+            namespace YawOne
+            {
+                extern AntiAim_CustomModes mode;
+                extern float angle;
+                extern float jitterMin;
+                extern float jitterMax;
+                extern float spinFactor;
+                extern bool isStatic;
+                extern bool slowSpin;
+				extern bool avoidLBY;
+            }
 
+            namespace YawTwo
+            {
+                extern AntiAim_CustomModes mode;
+                extern float angle;
+                extern float jitterMin;
+                extern float jitterMax;
+                extern float spinFactor;
+                extern bool isStatic;
+                extern bool slowSpin;
+				extern bool avoidLBY;
+            }
+
+			namespace Pitch
+			{
+				extern AntiAim_CustomPitches mode;
+				extern float angle;
+				extern float jitterMin;
+				extern float jitterMax;
+			}
+        }
+
+        extern bool moonwalk;
+	}
 	namespace Resolver
 	{
 		extern bool resolveAll;
