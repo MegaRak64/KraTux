@@ -233,16 +233,35 @@ void Settings::LoadDefaultsOrSave(std::string path)
 	settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("type")] = (int) Settings::AntiAim::Yaw::type;
 	settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("type_fake")] = (int) Settings::AntiAim::Yaw::typeFake;
 	settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("antiResolver")] = Settings::AntiAim::Yaw::antiResolver;
+	settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("dynamic")] = Settings::AntiAim::Yaw::dynamic;
 	settings[XORSTR("AntiAim")][XORSTR("Pitch")][XORSTR("enabled")] = Settings::AntiAim::Pitch::enabled;
 	settings[XORSTR("AntiAim")][XORSTR("Pitch")][XORSTR("type")] = (int) Settings::AntiAim::Pitch::type;
 	settings[XORSTR("AntiAim")][XORSTR("HeadEdge")][XORSTR("enabled")] = Settings::AntiAim::HeadEdge::enabled;
 	settings[XORSTR("AntiAim")][XORSTR("HeadEdge")][XORSTR("distance")] = Settings::AntiAim::HeadEdge::distance;
 	settings[XORSTR("AntiAim")][XORSTR("AutoDisable")][XORSTR("no_enemy")] = Settings::AntiAim::AutoDisable::noEnemy;
 	settings[XORSTR("AntiAim")][XORSTR("AutoDisable")][XORSTR("knife_held")] = Settings::AntiAim::AutoDisable::knifeHeld;
+	settings[XORSTR("AntiAim")][XORSTR("MoonWalk")] = Settings::AntiAim::moonwalk;
+	
 	settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("debugMode")] = Settings::AntiAim::Lua::debugMode;
 	settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("scriptX")] = Settings::AntiAim::Lua::scriptX;
 	settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("scriptY")] = Settings::AntiAim::Lua::scriptY;
 	settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("scriptY2")] = Settings::AntiAim::Lua::scriptY2;
+	
+	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("mode")] = (int) Settings::AntiAim::Custom::YawOne::mode;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("angle")] = Settings::AntiAim::Custom::YawOne::angle;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("jitter_min")] = Settings::AntiAim::Custom::YawOne::jitterMin;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("jitter_max")] = Settings::AntiAim::Custom::YawOne::jitterMax;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("spin_factor")] = Settings::AntiAim::Custom::YawOne::spinFactor;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("is_static")] = Settings::AntiAim::Custom::YawOne::isStatic;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("slow_spin")] = Settings::AntiAim::Custom::YawOne::slowSpin;
+
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("mode")] = (int) Settings::AntiAim::Custom::YawTwo::mode;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("angle")] = Settings::AntiAim::Custom::YawTwo::angle;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("jitter_min")] = Settings::AntiAim::Custom::YawTwo::jitterMin;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("jitter_max")] = Settings::AntiAim::Custom::YawTwo::jitterMax;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("spin_factor")] = Settings::AntiAim::Custom::YawTwo::spinFactor;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("is_static")] = Settings::AntiAim::Custom::YawTwo::isStatic;
+    	settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("slow_spin")] = Settings::AntiAim::Custom::YawTwo::slowSpin;
 
 	settings[XORSTR("ESP")][XORSTR("enabled")] = Settings::ESP::enabled;
 	settings[XORSTR("ESP")][XORSTR("key")] = Util::GetButtonName(Settings::ESP::key);
@@ -705,17 +724,35 @@ weaponSetting["Enabled"].asBool(),
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("type")], (int*)& Settings::AntiAim::Yaw::type);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("type_fake")], (int*)& Settings::AntiAim::Yaw::typeFake);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("antiResolver")], &Settings::AntiAim::Yaw::antiResolver);
+	GetVal(settings[XORSTR("AntiAim")][XORSTR("Yaw")][XORSTR("dynamic")], &Settings::AntiAim::Yaw::dynamic);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Pitch")][XORSTR("enabled")], &Settings::AntiAim::Pitch::enabled);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Pitch")][XORSTR("type")], (int*)& Settings::AntiAim::Pitch::type);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("HeadEdge")][XORSTR("enabled")], &Settings::AntiAim::HeadEdge::enabled);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("HeadEdge")][XORSTR("distance")], &Settings::AntiAim::HeadEdge::distance);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("AutoDisable")][XORSTR("knife_held")], &Settings::AntiAim::AutoDisable::knifeHeld);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("AutoDisable")][XORSTR("no_enemy")], &Settings::AntiAim::AutoDisable::noEnemy);
+	GetVal(settings[XORSTR("AntiAim")][XORSTR("MoonWalk")], &Settings::AntiAim::moonwalk);
+	
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("debugMode")], &Settings::AntiAim::Lua::debugMode);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("scriptX")], Settings::AntiAim::Lua::scriptX);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("scriptY")], Settings::AntiAim::Lua::scriptY);
 	GetVal(settings[XORSTR("AntiAim")][XORSTR("Lua")][XORSTR("scriptY2")], Settings::AntiAim::Lua::scriptY2);
+	
+	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("mode")], (int*)& Settings::AntiAim::Custom::YawOne::mode);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("angle")], &Settings::AntiAim::Custom::YawOne::angle);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("jitter_min")], &Settings::AntiAim::Custom::YawOne::jitterMin);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("jitter_max")], &Settings::AntiAim::Custom::YawOne::jitterMax);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("spin_factor")], &Settings::AntiAim::Custom::YawOne::spinFactor);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("is_static")], &Settings::AntiAim::Custom::YawOne::isStatic);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawOne")][XORSTR("slow_spin")], &Settings::AntiAim::Custom::YawOne::slowSpin);
 
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("mode")], (int*)& Settings::AntiAim::Custom::YawTwo::mode);
+   	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("angle")], &Settings::AntiAim::Custom::YawTwo::angle);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("jitter_min")], &Settings::AntiAim::Custom::YawTwo::jitterMin);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("jitter_max")], &Settings::AntiAim::Custom::YawTwo::jitterMax);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("spin_factor")], &Settings::AntiAim::Custom::YawTwo::spinFactor);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("is_static")], &Settings::AntiAim::Custom::YawTwo::isStatic);
+    	GetVal(settings[XORSTR("AntiAim")][XORSTR("Custom")][XORSTR("YawTwo")][XORSTR("slow_spin")], &Settings::AntiAim::Custom::YawTwo::slowSpin);
 
 	GetVal(settings[XORSTR("ESP")][XORSTR("enabled")], &Settings::ESP::enabled);
 	GetButtonCode(settings[XORSTR("ESP")][XORSTR("key")], &Settings::ESP::key);
