@@ -10,7 +10,33 @@ bool Settings::AntiAim::HeadEdge::enabled = false;
 float Settings::AntiAim::HeadEdge::distance = 25.0f;
 bool Settings::AntiAim::AutoDisable::noEnemy = false;
 bool Settings::AntiAim::AutoDisable::knifeHeld = false;
-
+//Dynamic AA and Moonwalk
+bool Settings::AntiAim::Yaw::dynamic = false;
+bool Settings::AntiAim::moonwalk = false;
+//CustomMode Yaw AA's (Custom 1)
+AntiAim_CustomModes Settings::AntiAim::Custom::YawOne::mode = AntiAim_CustomModes::NORMAL;
+float Settings::AntiAim::Custom::YawOne::angle = 0.0f;
+float Settings::AntiAim::Custom::YawOne::jitterMin = 0.0f;
+float Settings::AntiAim::Custom::YawOne::jitterMax = 180.0f;
+float Settings::AntiAim::Custom::YawOne::spinFactor = 25.0f;
+bool Settings::AntiAim::Custom::YawOne::isStatic = false;
+bool Settings::AntiAim::Custom::YawOne::slowSpin = false;
+bool Settings::AntiAim::Custom::YawOne::avoidLBY = false;
+//CustomMode Yaw AA's (Custom 2)
+AntiAim_CustomModes Settings::AntiAim::Custom::YawTwo::mode = AntiAim_CustomModes::NORMAL;
+float Settings::AntiAim::Custom::YawTwo::angle = 0.0f;
+float Settings::AntiAim::Custom::YawTwo::jitterMin = 0.0f;
+float Settings::AntiAim::Custom::YawTwo::jitterMax = 180.0f;
+float Settings::AntiAim::Custom::YawTwo::spinFactor = 25.0f;
+bool Settings::AntiAim::Custom::YawTwo::isStatic = false;
+bool Settings::AntiAim::Custom::YawTwo::slowSpin = false;
+bool Settings::AntiAim::Custom::YawTwo::avoidLBY = false;
+//CustomMode Pitch AA's
+AntiAim_CustomPitches Settings::AntiAim::Custom::Pitch::mode = AntiAim_CustomPitches::NORMAL;
+float Settings::AntiAim::Custom::Pitch::angle = 89.0f;
+float Settings::AntiAim::Custom::Pitch::jitterMin = -89.0f;
+float Settings::AntiAim::Custom::Pitch::jitterMax = 89.0f;
+//Lua AA's Create AA's on the go
 bool Settings::AntiAim::Lua::debugMode = true;
 char Settings::AntiAim::Lua::scriptX[512];
 char Settings::AntiAim::Lua::scriptY[512];
@@ -444,6 +470,10 @@ static void DoAntiAimY(QAngle& angle, int command_number, bool bFlip, bool& clam
 	int random;
 	int maxJitter;
 	static float lastAngleY, lastAngleY2; // angle we had last frame
+	
+	 C_BasePlayer* localplayer = (C_BasePlayer*) entityList->GetClientEntity(engine->GetLocalPlayer());
+    if (!localplayer)
+        return;
 
 	yFlip = bFlip != yFlip;
 
@@ -597,12 +627,128 @@ static void DoAntiAimY(QAngle& angle, int command_number, bool bFlip, bool& clam
 				}
 			}
 			break;
+			case AntiAimType_Y::CUSTOM1:
+		{
+            	float lastAngle = 0.f;
+		if (Settings::AntiAim::Custom::YawOne::mode == AntiAim_CustomModes::NORMAL)
+		{
+			if (Settings::AntiAim::Custom::YawOne::isStatic) 
+			{
+				if (lastAngle + Settings::AntiAim::Custom::YawOne::angle != *localplayer->GetLowerBodyYawTarget())
+				angle.y = lastAngle + Settings::AntiAim::Custom::YawOne::angle;
+				}
+		else 
+		{
+			if (Settings::AntiAim::Custom::YawOne::angle != *localplayer->GetLowerBodyYawTarget())
+			angle.y -= Settings::AntiAim::Custom::YawOne::angle;
+			}
+		}
+            else if (Settings::AntiAim::Custom::YawOne::mode == AntiAim_CustomModes::JITTER)
+            {
+                if (Settings::AntiAim::Custom::YawOne::isStatic)
+                {
+                    if (yFlip ? angle.y = Settings::AntiAim::Custom::YawOne::jitterMin
+                              : angle.y = Settings::AntiAim::Custom::YawOne::jitterMax
+                                          != *localplayer->GetLowerBodyYawTarget()) 
+                    {
+                        yFlip ? angle.y = Settings::AntiAim::Custom::YawOne::jitterMin
+                              : angle.y = Settings::AntiAim::Custom::YawOne::jitterMax;
+                    }
+                }
+                else
+                {
+                    if (yFlip ? angle.y -= Settings::AntiAim::Custom::YawOne::jitterMin
+                              : angle.y -= Settings::AntiAim::Custom::YawOne::jitterMax
+                                           != *localplayer->GetLowerBodyYawTarget()) 
+                    {
+                        yFlip ? angle.y -= Settings::AntiAim::Custom::YawOne::jitterMin
+                              : angle.y -= Settings::AntiAim::Custom::YawOne::jitterMax;
+                    }
+                }
+            }
+            else if (Settings::AntiAim::Custom::YawOne::mode == AntiAim_CustomModes::SPIN)
+            {
+                if (Settings::AntiAim::Custom::YawOne::slowSpin)
+                {
+                    factor =  360.0 / M_PHI;
+                    factor /= Settings::AntiAim::Custom::YawOne::spinFactor;
+                    if (fmodf(globalVars->curtime * factor, 360.0) != *localplayer->GetLowerBodyYawTarget())
+                        angle.y = fmodf(globalVars->curtime * factor, 360.0);
+                }
+                else
+                {
+                    factor =  360.0 / M_PHI;
+                    factor *= Settings::AntiAim::Custom::YawOne::spinFactor;
+                    if (fmodf(globalVars->curtime * factor, 360.0) != *localplayer->GetLowerBodyYawTarget())
+                        angle.y = fmodf(globalVars->curtime * factor, 360.0);
+                }
+            }
+            lastAngle = angle.y;
+        }
+        case AntiAimType_Y::CUSTOM2:
+        {
+            float lastAngle = 0.f;
+            if (Settings::AntiAim::Custom::YawTwo::mode == AntiAim_CustomModes::NORMAL)
+            {
+                if (Settings::AntiAim::Custom::YawTwo::isStatic)
+                {
+                    if (lastAngle + Settings::AntiAim::Custom::YawTwo::angle != *localplayer->GetLowerBodyYawTarget())
+                        angle.y = lastAngle + Settings::AntiAim::Custom::YawTwo::angle;
+                }
+                else
+                {
+                    if (Settings::AntiAim::Custom::YawTwo::angle != *localplayer->GetLowerBodyYawTarget())
+                        angle.y -= Settings::AntiAim::Custom::YawTwo::angle;
+                }
+            }
+            else if (Settings::AntiAim::Custom::YawTwo::mode == AntiAim_CustomModes::JITTER)
+            {
+                if (Settings::AntiAim::Custom::YawTwo::isStatic)
+                {
+                    if (yFlip ? angle.y = Settings::AntiAim::Custom::YawTwo::jitterMin
+                              : angle.y = Settings::AntiAim::Custom::YawTwo::jitterMax
+                                          != *localplayer->GetLowerBodyYawTarget())
+                    {
+                        yFlip ? angle.y = Settings::AntiAim::Custom::YawTwo::jitterMin
+                              : angle.y = Settings::AntiAim::Custom::YawTwo::jitterMax;
+                    }
+                }
+                else
+                {
+                    if (yFlip ? angle.y -= Settings::AntiAim::Custom::YawTwo::jitterMin
+                              : angle.y -= Settings::AntiAim::Custom::YawTwo::jitterMax
+                                           != *localplayer->GetLowerBodyYawTarget())
+                    {
+                        yFlip ? angle.y -= Settings::AntiAim::Custom::YawTwo::jitterMin
+                              : angle.y -= Settings::AntiAim::Custom::YawTwo::jitterMax;
+                    }
+                }
+            }
+            else if (Settings::AntiAim::Custom::YawTwo::mode == AntiAim_CustomModes::SPIN)
+            {
+                if (Settings::AntiAim::Custom::YawTwo::slowSpin)
+                {
+                    factor =  360.0 / M_PHI;
+                    factor /= Settings::AntiAim::Custom::YawTwo::spinFactor;
+                    if (fmodf(globalVars->curtime * factor, 360.0) != *localplayer->GetLowerBodyYawTarget())
+                        angle.y = fmodf(globalVars->curtime * factor, 360.0);
+                }
+                else
+                {
+                    factor =  360.0 / M_PHI;
+                    factor *= Settings::AntiAim::Custom::YawTwo::spinFactor;
+                    if (fmodf(globalVars->curtime * factor, 360.0) != *localplayer->GetLowerBodyYawTarget())
+                        angle.y = fmodf(globalVars->curtime * factor, 360.0);
+                }
+            }
+            lastAngle = angle.y;
+	    lastAngleY2 = angle.y;
+        }
 		default:
 			angle.y -= 0.0f;
 			break;
 	}
-	lastAngleY = angle.y;
-	lastAngleY2 = angle.y;
+		
 }
 
 static void DoAntiAimX(QAngle& angle, bool bFlip, bool& clamp)
@@ -656,6 +802,17 @@ static void DoAntiAimX(QAngle& angle, bool bFlip, bool& clamp)
 			clamp = false;
 			angle.x = LuaScriptX( lastAngleX, angle.x );
 			break;
+			case AntiAimType_X::CUSTOM:
+			if (Settings::AntiAim::Custom::Pitch::mode == AntiAim_CustomPitches::NORMAL)
+			{
+				angle.x = Settings::AntiAim::Custom::Pitch::angle;
+			}
+			else if (Settings::AntiAim::Custom::Pitch::mode == AntiAim_CustomPitches::JITTER)
+			{
+				angle.x = bFlip ? Settings::AntiAim::Custom::Pitch::jitterMin
+				: Settings::AntiAim::Custom::Pitch::jitterMax;
+			}
+			break;						
 		default:
 			angle.x -= 0.0f;
 			break;
@@ -680,7 +837,33 @@ void AntiAim::CreateMove(CUserCmd* cmd)
 	C_BasePlayer* localplayer = (C_BasePlayer*) entityList->GetClientEntity(engine->GetLocalPlayer());
 	if (!localplayer)
 		return;
+	if (Settings::AntiAim::moonwalk && localplayer->GetMoveType() == MOVETYPE_WALK)
+    {
+        if(cmd->forwardmove > 0)
+        {
+            cmd->buttons |= IN_BACK;
+            cmd->buttons &= ~IN_FORWARD;
+        }
 
+        if(cmd->forwardmove < 0 )
+        {
+            cmd->buttons |= IN_FORWARD;
+            cmd->buttons &= ~IN_BACK;
+        }
+
+        if(cmd->sidemove < 0 )
+        {
+            cmd->buttons |= IN_MOVERIGHT;
+            cmd->buttons &= ~IN_MOVELEFT;
+        }
+
+        if(cmd->sidemove > 0 )
+        {
+            cmd->buttons |= IN_MOVELEFT;
+            cmd->buttons &= ~IN_MOVERIGHT;
+        }
+    }
+	
 	C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) entityList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
 	if (!activeWeapon)
 		return;
@@ -731,6 +914,34 @@ void AntiAim::CreateMove(CUserCmd* cmd)
 
 	if (Settings::AntiAim::Yaw::enabled)
 	{
+		if (Settings::AntiAim::Yaw::dynamic)
+    	{
+    		float bestDist = 999999999.f; // easiest way to do it since we don't have a slider for distance
+    		for (int i = 1; i < engine->GetMaxClients(); ++i)
+    		{
+    			C_BasePlayer* target = (C_BasePlayer*) entityList->GetClientEntity(i);
+    
+    			if (!target
+    				|| target == localplayer
+    				|| target->GetDormant()
+    				|| !target->GetAlive()
+    				|| target->GetImmune()
+    				|| target->GetTeam() == localplayer->GetTeam())
+    				continue;
+    				
+    			Vector eye_pos = localplayer->GetEyePosition();
+    			Vector target_pos = target->GetEyePosition();
+    
+    			float tempDist = eye_pos.DistTo(target_pos);
+    		
+    			if(bestDist > tempDist)
+    			{
+    				bestDist = tempDist;
+    				angle.y = Math::CalcAngle(eye_pos, target_pos).y;
+    			}
+    		}
+    	}
+		
 		DoAntiAimY(angle, cmd->command_number, bFlip, should_clamp);
 		Math::NormalizeAngles(angle);
 		if (!Settings::FakeLag::enabled)
