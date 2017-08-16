@@ -53,9 +53,10 @@ void ThirdPerson::OverrideView(CViewSetup *pSetup)
 	}
 	input->m_fCameraInThirdPerson = true;
 	input->m_vecCameraOffset.z = cameraDistance;
-}
-/*
+	/*
 	Vector temp = Vector(cos(DEG2RAD(view.y)) * Settings::ThirdPerson::distance,
 						 sin(DEG2RAD(view.y)) * Settings::ThirdPerson::distance,
 						 -view.x );
-	pSetup->origin -= temp;
+	pSetup->origin -= temp; */
+}
+
