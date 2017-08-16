@@ -133,10 +133,10 @@ static void DrawAK74(const ModelRenderInfo_t& pInfo)
 		return;
 
 	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
-	IMaterial* mat = materialChamsWeapons;
+	IMaterial* mat = FindMaterial("materials/custom/rif_ak47", TEXTURE_GROUP_MODEL);
 
 	if (!Settings::ESP::Chams::Weapon::enabled)
-		mat = material->FindMaterial("", TEXTURE_GROUP_MODEL);
+		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
 	
 	//mat->AlphaModulate(1.0f);
 	//mat->ColorModulate(Settings::ESP::Chams::Weapon::color.Color());
