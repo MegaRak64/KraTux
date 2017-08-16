@@ -9,9 +9,8 @@
 
 namespace AntiAim
 {
+	bool GetBestHeadAngle(QAngle& angle);
 	void LuaInit();
 	void LuaCleanup();
-	bool AntiAim::GetBestHeadAngle(QAngle& angle);
-	//Hooks
 	void CreateMove(CUserCmd* cmd);
 }
