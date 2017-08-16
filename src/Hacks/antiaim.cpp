@@ -742,13 +742,13 @@ static void DoAntiAimY(QAngle& angle, int command_number, bool bFlip, bool& clam
                 }
             }
             lastAngle = angle.y;
-	    lastAngleY2 = angle.y;
+	    
         }
 		default:
 			angle.y -= 0.0f;
 			break;
 	}
-		
+	lastAngleY2 = angle.y;	
 }
 
 static void DoAntiAimX(QAngle& angle, bool bFlip, bool& clamp)
