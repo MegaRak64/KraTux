@@ -743,13 +743,13 @@ static void DoAntiAimY(QAngle& angle, int command_number, bool bFlip, bool& clam
                         angle.y = fmodf(globalVars->curtime * factor, 360.0);
                 }
             }
-               
+               lastAngle = angle.y;
         }
 		default:
 			angle.y -= 0.0f;
 			break;
 	}
-	lastAngle = angle.y;
+	
 	lastAngleY2 = angle.y;
 }
 
