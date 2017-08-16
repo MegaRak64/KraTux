@@ -55,7 +55,8 @@ static float Distance(Vector a, Vector b)
 }
 
 //static bool GetBestHeadAngle(QAngle& angle)
-static bool AntiAim::GetBestHeadAngle(QAngle& angle)
+
+bool AntiAim::GetBestHeadAngle(QAngle& angle)
 {
 	C_BasePlayer* localplayer = (C_BasePlayer*) entityList->GetClientEntity(engine->GetLocalPlayer());
 
