@@ -822,22 +822,11 @@ static void DoAntiAimX(QAngle& angle, bool bFlip, bool& clamp)
 
 void AntiAim::CreateMove(CUserCmd* cmd)
 {
-	if (!Settings::AntiAim::Yaw::enabled && !Settings::AntiAim::Pitch::enabled)
-		return;
-
-	if (Settings::Aimbot::AimStep::enabled && Aimbot::aimStepInProgress)
-		return;
-
-	QAngle oldAngle = cmd->viewangles;
-	float oldForward = cmd->forwardmove;
-	float oldSideMove = cmd->sidemove;
-
-	QAngle angle = cmd->viewangles;
-
 	C_BasePlayer* localplayer = (C_BasePlayer*) entityList->GetClientEntity(engine->GetLocalPlayer());
 	if (!localplayer)
 		return;
-	if (Settings::AntiAim::moonwalk && localplayer->GetMoveType() == MOVETYPE_WALK)
+			
+if (Settings::AntiAim::moonwalk && localplayer->GetMoveType() == MOVETYPE_WALK)
     {
         if(cmd->forwardmove > 0)
         {
@@ -863,6 +852,17 @@ void AntiAim::CreateMove(CUserCmd* cmd)
             cmd->buttons &= ~IN_MOVERIGHT;
         }
     }
+	if (!Settings::AntiAim::Yaw::enabled && !Settings::AntiAim::Pitch::enabled)
+		return;
+
+	if (Settings::Aimbot::AimStep::enabled && Aimbot::aimStepInProgress)
+		return;
+
+	QAngle oldAngle = cmd->viewangles;
+	float oldForward = cmd->forwardmove;
+	float oldSideMove = cmd->sidemove;
+
+	QAngle angle = cmd->viewangles;
 	
 	C_BaseCombatWeapon* activeWeapon = (C_BaseCombatWeapon*) entityList->GetClientEntityFromHandle(localplayer->GetActiveWeapon());
 	if (!activeWeapon)
