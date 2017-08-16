@@ -126,7 +126,24 @@ static void DrawWeapon(const ModelRenderInfo_t& pInfo)
 
 	modelRender->ForcedMaterialOverride(mat);
 }
+/*
+static void DrawAK74(const ModelRenderInfo_t& pInfo)
+{
+	if (!Settings::ESP::Chams::Custom::enabled)
+		return;
 
+	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
+	IMaterial* mat = FindMaterial("materials/custom/rif_ak47", TEXTURE_GROUP_MODEL);
+
+	if (!Settings::ESP::Chams::Weapon::enabled)
+		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
+	
+	//mat->AlphaModulate(1.0f);
+	//mat->ColorModulate(Settings::ESP::Chams::Weapon::color.Color());
+	
+	modelRender->ForcedMaterialOverride(mat);
+}
+*/
 static void DrawArms(const ModelRenderInfo_t& pInfo)
 {
 	if (!Settings::ESP::Chams::Arms::enabled)
@@ -184,4 +201,13 @@ void Chams::DrawModelExecute(void* thisptr, void* context, void *state, const Mo
 		DrawArms(pInfo);
 	else if (modelName.find(XORSTR("weapon")) != std::string::npos)
 		DrawWeapon(pInfo);
+		/*
+	if (Settings::ESP::Chams::Custom::enabled)
+	{
+		if (modelName.find(XORSTR("models/v_model...")) != std::string::npos)
+		DrawWeapon(pInfo);
+		
+		
+	}
+		*/
 }

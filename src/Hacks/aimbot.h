@@ -24,7 +24,7 @@ namespace Aimbot
 	void AutoCrouch(C_BasePlayer* player, CUserCmd* cmd);
 	void AutoSlow(C_BasePlayer* player, float& forward, float& sideMove, float& bestDamage, C_BaseCombatWeapon* active_weapon, CUserCmd* cmd);
 	void AutoPistol(C_BaseCombatWeapon* activeWeapon, CUserCmd* cmd);
-	void AutoShoot(C_BasePlayer* player, int bone, C_BaseCombatWeapon* activeWeapon, CUserCmd* cmd);
+	void AutoShoot(C_BasePlayer* player, C_BaseCombatWeapon* activeWeapon, CUserCmd* cmd);
 	float AutoWallBestBone(C_BasePlayer *player, int &bestBone);
 	void ShootCheck(C_BaseCombatWeapon* activeWeapon, CUserCmd* cmd);
 	void NoShoot(C_BaseCombatWeapon* activeWeapon, C_BasePlayer* player, C_BasePlayer* localplayer, CUserCmd* cmd);

@@ -40,11 +40,11 @@ LineGoesThroughSmokeFn LineGoesThroughSmoke;
 InitKeyValuesFn InitKeyValues;
 LoadFromBufferFn LoadFromBuffer;
 
-RandomSeedFn RandomSeed;
+//RandomSeedFn RandomSeed;
 RandomFloatFn RandomFloat;
-RandomFloatExpFn RandomFloatExp;
-RandomIntFn RandomInt;
-RandomGaussianFloatFn RandomGaussianFloat;
+//RandomFloatExpFn RandomFloatExp;
+//RandomIntFn RandomInt;
+//RandomGaussianFloatFn RandomGaussianFloat;
 
 LoadSkyFn LoadSky;
 
@@ -287,11 +287,11 @@ void Hooker::FindVstdlibFunctions()
 {
 	void* handle = dlopen(XORSTR("./bin/linux64/libvstdlib_client.so"), RTLD_NOLOAD | RTLD_NOW);
 
-	RandomSeed = reinterpret_cast<RandomSeedFn>(dlsym(handle, XORSTR("RandomSeed")));
+	//RandomSeed = reinterpret_cast<RandomSeedFn>(dlsym(handle, XORSTR("RandomSeed")));
 	RandomFloat = reinterpret_cast<RandomFloatFn>(dlsym(handle, XORSTR("RandomFloat")));
-	RandomFloatExp = reinterpret_cast<RandomFloatExpFn>(dlsym(handle, XORSTR("RandomFloatExp")));
-	RandomInt = reinterpret_cast<RandomIntFn>(dlsym(handle, XORSTR("RandomInt")));
-	RandomGaussianFloat = reinterpret_cast<RandomGaussianFloatFn>(dlsym(handle, XORSTR("RandomGaussianFloat")));
+	//RandomFloatExp = reinterpret_cast<RandomFloatExpFn>(dlsym(handle, XORSTR("RandomFloatExp")));
+	//RandomInt = reinterpret_cast<RandomIntFn>(dlsym(handle, XORSTR("RandomInt")));
+	//RandomGaussianFloat = reinterpret_cast<RandomGaussianFloatFn>(dlsym(handle, XORSTR("RandomGaussianFloat")));
 
 	dlclose(handle);
 }
