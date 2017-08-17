@@ -8,8 +8,8 @@ void HvH::RenderTab()
 	};
 
 	const char* xTypes[] = {
-			"UP", "DOWN", "DANCE", "FRONT", "LUA", "CUSTOM", // safe
-			"FAKE UP", "FAKE DOWN", "LISP DOWN", "ANGEL DOWN", "EMOTION", "ANGEL UP", "FAKEPITCH", "DOWNZERO", "UPZERO", "FAKE_ZERO", "LUA UNCLAMPED" // untrusted
+			"UP", "DOWN", "DANCE", "FRONT", "LUA", // safe
+			"FAKE UP", "FAKE DOWN", "LISP DOWN", "ANGEL DOWN", "EMOTION", "ANGEL UP", "FAKEPITCH", "DOWNZERO", "UPZERO", "CUSTOM", "FAKE_ZERO", "LUA UNCLAMPED" // untrusted
 	};
 
 	const char* resolverModes[] = {
@@ -269,21 +269,21 @@ void HvH::RenderTab()
                 }
                 ImGui::Checkbox("Avoid LBY", &Settings::AntiAim::Custom::YawTwo::avoidLBY);
             }
-						
-	if (Settings::AntiAim::Pitch::type == AntiAimType_X::CUSTOM)
-            {
-                ImGui::Text("Custom Pitch");
-                ImGui::Combo("##CUSTOMPITCHES", (int*)& Settings::AntiAim::Custom::Pitch::mode, customPitches, IM_ARRAYSIZE(customPitches));
-                if (Settings::AntiAim::Custom::Pitch::mode == AntiAim_CustomPitches::NORMAL)
-                {
+		ImGui::Separator();
+		if (Settings::AntiAim::Pitch::type == AntiAimType_X::CUSTOM)
+           	 {
+               	 ImGui::Text("Custom Pitch");
+               	 ImGui::Combo("##CUSTOMPITCHES", (int*)& Settings::AntiAim::Custom::Pitch::mode, customPitches, IM_ARRAYSIZE(customPitches));
+              	  if (Settings::AntiAim::Custom::Pitch::mode == AntiAim_CustomPitches::NORMAL)
+               	 {
                     ImGui::SliderFloat("##CUSTOMPITCHANGLE", &Settings::AntiAim::Custom::Pitch::angle, -89, 89, "Angle: %0.f");
-                }
-                else if (Settings::AntiAim::Custom::Pitch::mode == AntiAim_CustomPitches::JITTER)
-                {
-                    ImGui::SliderFloat("##CUSTOMPITCHJITTERMIN", &Settings::AntiAim::Custom::Pitch::jitterMin, -89, 89, "Min: %0.f");
-                    ImGui::SliderFloat("##CUSTOMPITCHJITTERMAX", &Settings::AntiAim::Custom::Pitch::jitterMax, -89, 89, "Max: %0.f");
-                }
-            }
+              	  }
+              	  else if (Settings::AntiAim::Custom::Pitch::mode == AntiAim_CustomPitches::JITTER)
+              	  {
+               	     ImGui::SliderFloat("##CUSTOMPITCHJITTERMIN", &Settings::AntiAim::Custom::Pitch::jitterMin, -89, 89, "Min: %0.f");
+               	     ImGui::SliderFloat("##CUSTOMPITCHJITTERMAX", &Settings::AntiAim::Custom::Pitch::jitterMax, -89, 89, "Max: %0.f");
+               	 }
+           	 }
 
 			ImGui::EndChild();
 		}
