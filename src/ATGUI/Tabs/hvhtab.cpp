@@ -9,7 +9,7 @@ void HvH::RenderTab()
 
 	const char* xTypes[] = {
 			"UP", "DOWN", "DANCE", "FRONT", "LUA", "CUSTOM", // safe
-			"FAKE UP", "FAKE DOWN", "LISP DOWN", "ANGEL DOWN", "ANGEL UP", "FAKEPITCH", "DOWNZERO", "UPZERO", "FAKE_ZERO", "EMOTION", "LUA UNCLAMPED" // untrusted
+			"FAKE UP", "FAKE DOWN", "LISP DOWN", "ANGEL DOWN", "EMOTION", "ANGEL UP", "FAKEPITCH", "DOWNZERO", "UPZERO", "FAKE_ZERO", "LUA UNCLAMPED" // untrusted
 	};
 
 	const char* resolverModes[] = {
