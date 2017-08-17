@@ -133,7 +133,7 @@ static void DrawAK74(const ModelRenderInfo_t& pInfo)
 		return;
 
 	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
-	IMaterial* mat = FindMaterial("materials/custom/rif_ak47", TEXTURE_GROUP_MODEL);
+	IMaterial* mat = FindMaterial("/custom/rif_ak47", TEXTURE_GROUP_MODEL);
 
 	if (!Settings::ESP::Chams::Weapon::enabled)
 		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
@@ -204,9 +204,9 @@ void Chams::DrawModelExecute(void* thisptr, void* context, void *state, const Mo
 		/*
 	if (Settings::ESP::Chams::Custom::enabled)
 	{
-		if (modelName.find(XORSTR("models/v_model...")) != std::string::npos)
-		DrawWeapon(pInfo);
-		
+		if (modelName.find(XORSTR("models/weapons/v_rif_ak47.mdl")) != std::string::npos)
+		DrawAK74(pInfo);
+		// May be in future i add model changer, and it will be funny.
 		
 	}
 		*/
