@@ -17,13 +17,14 @@ int Settings::Triggerbot::RandomDelay::lowBound = 20;
 int Settings::Triggerbot::RandomDelay::highBound = 35;
 int Settings::Triggerbot::RandomDelay::lastRoll = 0;
 ButtonCode_t Settings::Triggerbot::key = ButtonCode_t::KEY_LALT;
+bool Settings::Triggerbot::keybindEnabled = true;
 
 void Triggerbot::CreateMove(CUserCmd *cmd)
 {
 	if (!Settings::Triggerbot::enabled)
 		return;
 
-	if (!inputSystem->IsButtonDown(Settings::Triggerbot::key))
+	if (!inputSystem->IsButtonDown(Settings::Triggerbot::key) && Settings::Triggerbot::keybindEnabled)
 		return;
 
 	C_BasePlayer* localplayer = (C_BasePlayer*) entityList->GetClientEntity(engine->GetLocalPlayer());
