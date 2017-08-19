@@ -589,9 +589,9 @@ public:
 	}
 	
 	float GetPostponeFireReadyTime()
--	{
--		return *(float*)((uintptr_t)this + offsets.DT_WeaponCSBase.m_flPostponeFireReadyTime);
--	}
+	{
+		return *(float*)((uintptr_t)this + offsets.DT_WeaponCSBase.m_flPostponeFireReadyTime);
+	}
 
 	bool GetInReload()
 	{
