@@ -1,11 +1,11 @@
 #include "Fuzion.h"
 #include "EventListener.h"
 #include "preload.h"
-//#include "Utils/netvarmanager.h"
+#include "Utils/netvarmanager.h"
 
 static EventListener* eventListener = nullptr;
 // The Below Line is Set by the Build script. Keep this on Line 8.
-char buildID[] = "tgAnr8zptP4QhLAhnbfMyDGdNaZlsgGp"; // Line Set by build script
+char buildID[] = "cCklz64KjWlMk3QUBxqBYwF6HxZyFm4t"; // Line Set by build script
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 bool preload = false;
 bool isShuttingDown = false;
@@ -23,7 +23,7 @@ void MainThread()
 	Interfaces::FindInterfaces();
 	//Interfaces::DumpInterfaces();
 
-	Hooker::FindLoadSky();
+	Hooker::FindSetNamedSkybox();
 	Hooker::FindViewRender();
 	Hooker::FindSDLInput();
 	Hooker::InitializeVMHooks();
@@ -43,7 +43,7 @@ void MainThread()
 	Hooker::FindLineGoesThroughSmoke();
 	Hooker::FindInitKeyValues();
 	Hooker::FindLoadFromBuffer();
-	Hooker::FindVstdlibFunctions();
+	//Hooker::FindVstdlibFunctions();
 	Hooker::FindOverridePostProcessingDisable();
 	Hooker::FindCrosshairWeaponTypeCheck();
 	Hooker::HookSwapWindow();
