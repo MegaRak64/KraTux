@@ -46,7 +46,7 @@ LoadFromBufferFn LoadFromBuffer;
 //RandomIntFn RandomInt;
 //RandomGaussianFloatFn RandomGaussianFloat;
 
-SetNamedSkyBoxFn SetNamedSkyBox;
+LoadSkyFn LoadSky;
 
 std::vector<dlinfo_t> libraries;
 
@@ -342,11 +342,11 @@ void Hooker::FindSDLInput()
 	launcherMgr = reinterpret_cast<ILauncherMgrCreateFn>(func_address)();
 }
 
-void Hooker::FindSetNamedSkybox()
+void Hooker::FindLoadSky()
 {
 	uintptr_t func_address = PatternFinder::FindPatternInModule(XORSTR("engine_client.so"),
 																(unsigned char*) XORSTR("\x55\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x48\x89\xE5\x41\x55\x41\x54\x49\x89\xFD"),
 																XORSTR("x??????????????xxxxxxxxxx"));
 
-	SetNamedSkyBox = reinterpret_cast<SetNamedSkyBoxFn>(func_address);
+	LoadSky = reinterpret_cast<LoadSkyFn>(func_address);
 }
