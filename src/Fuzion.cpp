@@ -23,7 +23,7 @@ void MainThread()
 	Interfaces::FindInterfaces();
 	//Interfaces::DumpInterfaces();
 
-	Hooker::FindSetNamedSkybox();
+	Hooker::FindLoadSky();
 	Hooker::FindViewRender();
 	Hooker::FindSDLInput();
 	Hooker::InitializeVMHooks();
