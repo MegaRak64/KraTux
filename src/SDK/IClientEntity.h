@@ -197,8 +197,12 @@ public:
 	{
 		return (bool*)((uintptr_t)this + offsets.DT_BaseEntity.m_bSpotted);
 	}
-};
 
+	bool isMoving()	
+	{
+		return *(bool*)((uintptr_t)this + 0x110);
+	}
+};
 /* generic game classes */
 class C_BasePlayer : public C_BaseEntity
 {
