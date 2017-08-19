@@ -41,12 +41,12 @@ InitKeyValuesFn InitKeyValues;
 LoadFromBufferFn LoadFromBuffer;
 
 //RandomSeedFn RandomSeed;
-RandomFloatFn RandomFloat;
+//RandomFloatFn RandomFloat;
 //RandomFloatExpFn RandomFloatExp;
 //RandomIntFn RandomInt;
 //RandomGaussianFloatFn RandomGaussianFloat;
 
-LoadSkyFn LoadSky;
+SetNamedSkyBoxFn SetNamedSkyBox;
 
 std::vector<dlinfo_t> libraries;
 
@@ -282,20 +282,20 @@ void Hooker::FindLoadFromBuffer()
 																XORSTR("xxxxxxxxxxxxxxxxxx"));
 	LoadFromBuffer = reinterpret_cast<LoadFromBufferFn>(func_address);
 }
-
+/*
 void Hooker::FindVstdlibFunctions()
 {
 	void* handle = dlopen(XORSTR("./bin/linux64/libvstdlib_client.so"), RTLD_NOLOAD | RTLD_NOW);
 
-	//RandomSeed = reinterpret_cast<RandomSeedFn>(dlsym(handle, XORSTR("RandomSeed")));
+	RandomSeed = reinterpret_cast<RandomSeedFn>(dlsym(handle, XORSTR("RandomSeed")));
 	RandomFloat = reinterpret_cast<RandomFloatFn>(dlsym(handle, XORSTR("RandomFloat")));
-	//RandomFloatExp = reinterpret_cast<RandomFloatExpFn>(dlsym(handle, XORSTR("RandomFloatExp")));
-	//RandomInt = reinterpret_cast<RandomIntFn>(dlsym(handle, XORSTR("RandomInt")));
-	//RandomGaussianFloat = reinterpret_cast<RandomGaussianFloatFn>(dlsym(handle, XORSTR("RandomGaussianFloat")));
+	RandomFloatExp = reinterpret_cast<RandomFloatExpFn>(dlsym(handle, XORSTR("RandomFloatExp")));
+	RandomInt = reinterpret_cast<RandomIntFn>(dlsym(handle, XORSTR("RandomInt")));
+	RandomGaussianFloat = reinterpret_cast<RandomGaussianFloatFn>(dlsym(handle, XORSTR("RandomGaussianFloat")));
 
 	dlclose(handle);
 }
-
+ */
 
 void Hooker::FindOverridePostProcessingDisable()
 {
@@ -310,8 +310,8 @@ void Hooker::FindOverridePostProcessingDisable()
 void Hooker::FindCrosshairWeaponTypeCheck()
 {
 	uintptr_t byte_address = PatternFinder::FindPatternInModule(XORSTR("client_client.so"),
-																(unsigned char*) XORSTR("\x83\xF8\x05\x0F\x84\x00\x00\x00\x00\x49\x8B\x07"),
-																XORSTR("xxxxx????xxx"));
+																(unsigned char*) XORSTR("\x83\xF8\x05\x0F\x84\x00\x00\x00\x00\x48\x8B\x55\xB8"),
+																XORSTR("xxxxx????xxxx"));
 
 	CrosshairWeaponTypeCheck = reinterpret_cast<uint8_t*>(byte_address + 2);
 	Util::ProtectAddr(CrosshairWeaponTypeCheck, PROT_READ | PROT_WRITE | PROT_EXEC);
@@ -342,11 +342,11 @@ void Hooker::FindSDLInput()
 	launcherMgr = reinterpret_cast<ILauncherMgrCreateFn>(func_address)();
 }
 
-void Hooker::FindLoadSky()
+void Hooker::FindSetNamedSkybox()
 {
 	uintptr_t func_address = PatternFinder::FindPatternInModule(XORSTR("engine_client.so"),
 																(unsigned char*) XORSTR("\x55\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x48\x89\xE5\x41\x55\x41\x54\x49\x89\xFD"),
 																XORSTR("x??????????????xxxxxxxxxx"));
 
-	LoadSky = reinterpret_cast<LoadSkyFn>(func_address);
+	SetNamedSkyBox = reinterpret_cast<SetNamedSkyBoxFn>(func_address);
 }
