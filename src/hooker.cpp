@@ -41,7 +41,7 @@ InitKeyValuesFn InitKeyValues;
 LoadFromBufferFn LoadFromBuffer;
 
 //RandomSeedFn RandomSeed;
-//RandomFloatFn RandomFloat;
+RandomFloatFn RandomFloat;
 //RandomFloatExpFn RandomFloatExp;
 //RandomIntFn RandomInt;
 //RandomGaussianFloatFn RandomGaussianFloat;
