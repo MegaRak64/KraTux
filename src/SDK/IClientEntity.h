@@ -540,10 +540,23 @@ public:
 class CCSWeaponInfo : public FileWeaponInfo_t
 {
 public:
+	char* GetConsoleName()
+ 	{
+ 		return *(char**)((uintptr_t)this + 0x8);
+ 	}
+
 	CSWeaponType GetWeaponType()
 	{
 		return *(CSWeaponType*)((uintptr_t)this + 0x140);
 	}
+	char* GetTracerEffect()
+     	{
+         return *(char**)((uintptr_t)this + 0x278);
+	     }
+     	int* GetTracerFrequency()
+     	{
+        return (int*)((uintptr_t)this + 0x280);
+     	}
 	int GetDamage()
 	{
 		return *(int*)((uintptr_t)this + 0x16C);
@@ -606,7 +619,11 @@ public:
 	{
 		return *(float*)((uintptr_t)this + offsets.DT_WeaponCSBase.m_fAccuracyPenalty);
 	}
-
+	bool GetReloadVisuallyComplete()
+ 	{
+ 		return *(bool*)((uintptr_t)this + offsets.DT_WeaponCSBase.m_bReloadVisuallyComplete);
+ 	}
+ 
 	CCSWeaponInfo* GetCSWpnData()
 	{
 		typedef CCSWeaponInfo* (* oGetCSWpnData)(void*);
