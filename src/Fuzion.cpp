@@ -242,7 +242,8 @@ void __attribute__((destructor)) Shutdown()
 	AntiAim::LuaCleanup();
 	Aimbot::XDOCleanup();
 	NoSmoke::Cleanup();
-
+	TracerEffect::RestoreTracers();
+	
 	clientVMT->ReleaseVMT();
 	panelVMT->ReleaseVMT();
 	modelRenderVMT->ReleaseVMT();
