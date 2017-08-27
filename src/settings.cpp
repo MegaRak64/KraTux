@@ -848,7 +848,9 @@ weaponSetting["Enabled"].asBool(),
 	GetVal(settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("localplayer_color")], &Settings::ESP::Chams::localplayerColor);
 	GetVal(settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("type")], (int*)& Settings::ESP::Chams::type);
 	GetVal(settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("enabled")], &Settings::ESP::Chams::enabled);
-	GetVal(settings[XORSTR("ESP")][XORSTR("Sounds")][XORSTR("enabled")], &Settings::ESP::Sounds::enabled);
+	GetVal(settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("CustomWeaponskin")], &Settings::ESP::Chams::CustomWeaponskin::enabled);
+	GetVal(settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("Stickers")][XORSTR("enabled")], &Settings::ESP::Chams::Stickers::enabled);
+	GetVal(settings[XORSTR("ESP")][XORSTR("Sounds")][XORSTR("enabled")][XORSTR("enabled")], &Settings::ESP::Sounds::enabled);
 	GetVal(settings[XORSTR("ESP")][XORSTR("Sounds")][XORSTR("time")], &Settings::ESP::Sounds::time);
 	GetVal(settings[XORSTR("ESP")][XORSTR("Hitmarker")][XORSTR("enabled")], &Settings::ESP::Hitmarker::enabled);
 	GetVal(settings[XORSTR("ESP")][XORSTR("Hitmarker")][XORSTR("enemies")], &Settings::ESP::Hitmarker::enemies);

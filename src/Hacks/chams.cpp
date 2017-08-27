@@ -3,6 +3,8 @@
 bool Settings::ESP::Chams::enabled = false;
 bool Settings::ESP::Chams::Arms::enabled = false;
 bool Settings::ESP::Chams::Weapon::enabled = false;
+bool Settings::ESP::Chams::CustomWeaponskin::enabled = false;
+bool Settings::ESP::Chams::Stickers::enabled = false;
 ArmsType Settings::ESP::Chams::Arms::type = ArmsType::DEFAULT;
 HealthColorVar Settings::ESP::Chams::allyColor = ImColor(0, 0, 255, 255);
 HealthColorVar Settings::ESP::Chams::allyVisibleColor = ImColor(0, 255, 0, 255);
