@@ -865,6 +865,15 @@ namespace Settings
 				extern bool enabled;
 				extern ColorVar color;
 			}
+			namespace CustomWeaponskin
+			{
+				extern bool enabled;
+			}
+			
+			namespace Stickers
+			{
+				extern bool enabled;
+			}
 		}
 
 		namespace Sounds

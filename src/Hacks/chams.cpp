@@ -170,6 +170,64 @@ static void DrawArms(const ModelRenderInfo_t& pInfo)
 	modelRender->ForcedMaterialOverride(mat);
 }
 
+static void DrawAK74(const ModelRenderInfo_t& pInfo)
+{
+	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
+		return;
+
+	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
+	IMaterial* mat = material->FindMaterial("custom/rif_ak47/ak47", "Model textures");
+	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
+	{
+		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
+	}
+	modelRender->ForcedMaterialOverride(mat);
+}
+
+static void DrawM4A1(const ModelRenderInfo_t& pInfo)
+{
+	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
+		return;
+
+	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
+	IMaterial* mat = material->FindMaterial("custom/rif_m4a1/rif_m4a1", "Model textures");
+	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
+	{
+		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
+	}
+	modelRender->ForcedMaterialOverride(mat);
+}
+static void DrawM4A1S(const ModelRenderInfo_t& pInfo)
+{
+	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
+		return;
+
+	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
+	IMaterial* mat = material->FindMaterial("custom/rif_m4a1_s/rif_m4a1_s", "Model textures");
+	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
+	{
+		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
+	}
+	modelRender->ForcedMaterialOverride(mat);
+}
+/*
+static void DrawStickers(const ModelRenderInfo_t& pInfo)
+{
+	if (!Settings::ESP::Chams::Stickers::enabled)
+	return;
+
+	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
+	IMaterial* mat = material->FindMaterial("models/weapons/customization/stickers/atlanta2017/gamb", "Other textures");
+
+	if (!Settings::ESP::Chams::Stickers::enabled)
+	{
+		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
+	}
+
+	modelRender->ForcedMaterialOverride(mat);
+}
+*/
+
 void Chams::DrawModelExecute(void* thisptr, void* context, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld)
 {
 	if (!engine->IsInGame())
@@ -200,14 +258,18 @@ void Chams::DrawModelExecute(void* thisptr, void* context, void *state, const Mo
 	else if (modelName.find(XORSTR("arms")) != std::string::npos)
 		DrawArms(pInfo);
 	else if (modelName.find(XORSTR("weapon")) != std::string::npos)
-		DrawWeapon(pInfo);
-		/*
-	if (Settings::ESP::Chams::Custom::enabled)
 	{
-		if (modelName.find(XORSTR("models/weapons/v_rif_ak47.mdl")) != std::string::npos)
-		DrawAK74(pInfo);
-		// May be in future i add model changer, and it will be funny.
-		
+		if (Settings::ESP::Chams::Weapon::enabled == true)
+			DrawWeapon(pInfo);
+		else if (modelName.find(XORSTR("models/weapons/v_rif_m4a1.mdl")) != std::string::npos)
+			DrawM4A1(pInfo);
+			/*
+		else if (modelName.find(XORSTR("stickers")) != std::string::npos)
+			DrawStickers(pInfo);
+			*/
+		else if (modelName.find(XORSTR("models/weapons/v_rif_ak47.mdl")) != std::string::npos)
+			DrawAK74(pInfo);
+		else if (modelName.find(XORSTR("models/weapons/v_rif_m4a1_s.mdl")) != std::string::npos)
+			DrawM4A1S(pInfo);
 	}
-		*/
 }

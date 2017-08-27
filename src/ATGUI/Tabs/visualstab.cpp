@@ -177,6 +177,25 @@ void Visuals::RenderTab()
 				ImGui::Checkbox(XORSTR("Show Footsteps"), &Settings::ESP::Sounds::enabled);
 				ImGui::Checkbox(XORSTR("No View Punch"), &Settings::View::NoViewPunch::enabled);
 				ImGui::Checkbox(XORSTR("Weapons"), &Settings::ESP::Chams::Weapon::enabled);
+				if (ImGui::Checkbox(XORSTR("Custom skins"), &Settings::ESP::Chams::CustomWeaponskin::enabled))
+				{
+					if (Settings::ESP::Chams::Weapon::enabled)
+					{
+						ImGui::OpenPopup(XORSTR("Error###SKIN_CUSTOM"));
+						Settings::ESP::Chams::Weapon::enabled = false;
+						Settings::ESP::Chams::CustomWeaponskin::enabled = false;
+					}
+					
+				}
+				if (ImGui::BeginPopupModal(XORSTR("Error###SKIN_CUSTOM")))
+				{
+					ImGui::Text(XORSTR("Please, choose only between Custom Skin and Weapon Chams"));
+
+					if (ImGui::Button(XORSTR("OK")))
+						ImGui::CloseCurrentPopup();
+				ImGui::EndPopup();
+				}
+			ImGui::Checkbox(XORSTR("Stickers"), &Settings::ESP::Chams::Stickers::enabled);
 				ImGui::Checkbox(XORSTR("No Sky"), &Settings::NoSky::enabled);
 				ImGui::Checkbox(XORSTR("No Smoke"), &Settings::NoSmoke::enabled);
 				

@@ -146,3 +146,18 @@ void NetVarManager::DumpNetvars()
 
 	std::ofstream(netvarsPath) << ss.str();
 }
+/*
+bool NetVarManager::PrecacheModel(const char* szModelName)
+{
+    CNetworkStringTable* m_pModelPrecacheTable = ClientStringTableContainer->FindTable("modelprecache");
+ 
+	if (m_pModelPrecacheTable)
+	{
+		ModelInfo->FindOrLoadModel(szModelName);
+		int idx = m_pModelPrecacheTable->AddString(false, szModelName);
+		if (idx == INVALID_STRING_INDEX)
+			return false;
+	}
+	return true;
+}
+*/

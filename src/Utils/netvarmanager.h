@@ -24,4 +24,6 @@ namespace NetVarManager
 	std::string DumpTable(RecvTable* table, int depth);
 	bool HookProp(const char* tableName, const char* propName, RecvVarProxyFn f);
 	void DumpNetvars();
+	
+	//bool PrecacheModel(const char* szModelName);
 }

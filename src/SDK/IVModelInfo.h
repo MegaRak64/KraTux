@@ -495,4 +495,9 @@ public:
 		typedef studiohdr_t* (* oGetStudioModel)(void*, const model_t*);
 		return getvfunc<oGetStudioModel>(this, 31)(this, model);
 	}
+	model_t* FindOrLoadModel( const char* name )
+	{
+		typedef model_t* (* oFindOrLoadModel)(void*, const char*);
+		return getvfunc<oFindOrLoadModel>(this, 41)(this, name);
+	}
 };

@@ -1,5 +1,4 @@
 #include "skinchanger.h"
-
 bool Settings::Skinchanger::Skins::enabled = false;
 bool Settings::Skinchanger::Models::enabled = false;
 
@@ -55,7 +54,6 @@ std::unique_ptr<RecvPropHook> SkinChanger::sequenceHook;
 
 bool SkinChanger::forceFullUpdate = true;
 bool SkinChanger::glovesUpdated = false;
-
 void SkinChanger::FrameStageNotifyModels(ClientFrameStage_t stage)
 {
 	if (Settings::Skinchanger::Models::enabled && ModSupport::current_mod != ModType::CSCO)
@@ -124,6 +122,8 @@ void SkinChanger::FrameStageNotifyModels(ClientFrameStage_t stage)
 		if (ItemDefinitionIndexMap.find(*activeWeapon->GetItemDefinitionIndex()) != ItemDefinitionIndexMap.end())
 			if (Settings::Skinchanger::Models::enabled)
 				*viewmodel->GetModelIndex() = modelInfo->GetModelIndex(ItemDefinitionIndexMap.at(*activeWeapon->GetItemDefinitionIndex()).entityModel);
+				if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_AK47)
+					*viewmodel->GetModelIndex() = modelInfo->GetModelIndex("models/custom/weapons/v_rif_ak47.mdl");
 
 		if (!entityList->GetClientEntityFromHandle((void *) localplayer->GetWearables()))
 		{

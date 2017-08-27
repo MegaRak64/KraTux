@@ -349,6 +349,8 @@ void Settings::LoadDefaultsOrSave(std::string path)
 	LoadColor(settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("localplayer_color")], Settings::ESP::Chams::localplayerColor);
 	settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("type")] = (int) Settings::ESP::Chams::type;
 	settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("enabled")] = Settings::ESP::Chams::enabled;
+	settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("CustomWeaponskin")][XORSTR("enabled")] = Settings::ESP::Chams::CustomWeaponskin::enabled;
+	settings[XORSTR("ESP")][XORSTR("Chams")][XORSTR("Stickers")][XORSTR("enabled")] = Settings::ESP::Chams::Stickers::enabled;
 	settings[XORSTR("ESP")][XORSTR("Sounds")][XORSTR("enabled")] = Settings::ESP::Sounds::enabled;
 	settings[XORSTR("ESP")][XORSTR("Sounds")][XORSTR("time")] = Settings::ESP::Sounds::time;
 	settings[XORSTR("ESP")][XORSTR("Hitmarker")][XORSTR("enabled")] = Settings::ESP::Hitmarker::enabled;
