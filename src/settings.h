@@ -12,6 +12,7 @@
 #include "fonts.h"
 #include "Utils/draw.h"
 #include "Hacks/skinchanger.h"
+#include "Hacks/tracereffect.h"
 #include "Utils/util.h"
 #include "Utils/util_items.h"
 #include "Utils/util_sdk.h"
@@ -51,10 +52,16 @@ enum class AutostrafeType : int
 
 enum class AntiAimType_Y : int
 {
+	RANDOM_AA,
+	SIDEWAYSJITTER,
 	SPIN_SLOW,
+	SPIN_RANDOM,
+	RANDOMBACKJITTER,
 	SPIN_FAST,
+	LBYSPIN,
 	JITTER,
 	BACKJITTER,
+	TURBOJITTER,
 	SIDE,
 	BACKWARDS,
 	FORWARDS,
@@ -76,6 +83,12 @@ enum class AntiAimType_Y : int
 	LBYONGROUND,
 	LUA_UNCLAMPED,
 	LUA_UNCLAMPED2,
+	CASUALAA,
+	AUTISM,
+	ZEUSJITTER,
+	JITTER_180,
+	TANK,
+	FAKEHEAD,
 	CUSTOM1,
 	CUSTOM2,
 };
@@ -99,6 +112,11 @@ enum class AntiAimType_X : int
 	LISP_DOWN,
 	ANGEL_DOWN,
 	ANGEL_UP,
+	FAKEPITCH,
+	DOWNZERO,
+	UPZERO,
+	FAKE_ZERO,
+	EMOTION,
 	LUA_UNCLAMPED,
 	CUSTOM,
 };
@@ -594,6 +612,7 @@ namespace Settings
 	{
 		extern bool enabled;
 		extern ButtonCode_t key;
+		extern bool keybindEnabled;
 
 		namespace Filters
 		{
@@ -1051,7 +1070,7 @@ namespace Settings
 		extern bool enabled;
 		extern ClanTagType type;
 	}
-
+	
 	namespace View
 	{
 		namespace NoAimPunch
@@ -1175,7 +1194,14 @@ namespace Settings
 		extern bool autobuy;
 		extern int autobuyAt;
 	}
-
+	namespace TracerEffects
+ 	{
+ 		extern bool enabled;
+ 		extern bool serverSide;
+ 		extern TracerEffects_t effect;
+ 		extern int frequency;
+  		  
+ 	}
 	namespace AutoKnife
  	{
  		extern bool enabled;

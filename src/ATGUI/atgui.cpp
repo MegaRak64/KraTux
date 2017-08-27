@@ -4,7 +4,7 @@ bool UI::isVisible = false;
 
 bool Settings::ScreenshotCleaner::enabled = false;
 
-ColorVar Settings::UI::mainColor = ImColor(25, 25, 25, 255);
+ColorVar Settings::UI::mainColor = ImColor(107, 64, 142, 255);
 ColorVar Settings::UI::bodyColor = ImColor(5, 5, 5, 255);
 ColorVar Settings::UI::fontColor = ImColor(255, 255, 255, 255);
 ColorVar Settings::UI::accentColor = ImColor(39, 106, 219, 255);

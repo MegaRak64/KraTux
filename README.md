@@ -9,6 +9,9 @@
 
 Want to chat or play with other Fuzion users? Join us on Gitter!
 
+## THIS IS A WORKIGN PROGRESS FORK ! 3RD PERSON IS BROKEN AND SO IS ANIT_AIMS
+
+
 ## What is Fuzion?
 
 A fully featured internal hack for *CounterStrike : Global Offensive* written in C++.

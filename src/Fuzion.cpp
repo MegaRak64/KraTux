@@ -1,11 +1,11 @@
 #include "Fuzion.h"
 #include "EventListener.h"
 #include "preload.h"
-//#include "Utils/netvarmanager.h"
+#include "Utils/netvarmanager.h"
 
 static EventListener* eventListener = nullptr;
 // The Below Line is Set by the Build script. Keep this on Line 8.
-char buildID[] = "tgAnr8zptP4QhLAhnbfMyDGdNaZlsgGp"; // Line Set by build script
+char buildID[] = "cCklz64KjWlMk3QUBxqBYwF6HxZyFm4t"; // Line Set by build script
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 bool preload = false;
 bool isShuttingDown = false;
@@ -242,7 +242,8 @@ void __attribute__((destructor)) Shutdown()
 	AntiAim::LuaCleanup();
 	Aimbot::XDOCleanup();
 	NoSmoke::Cleanup();
-
+	TracerEffect::RestoreTracers();
+	
 	clientVMT->ReleaseVMT();
 	panelVMT->ReleaseVMT();
 	modelRenderVMT->ReleaseVMT();
