@@ -34,6 +34,11 @@ int Settings::UI::Windows::Skinmodel::sizeY = 645;
 int Settings::UI::Windows::Skinmodel::posX = 1050;
 int Settings::UI::Windows::Skinmodel::posY = 645;
 
+int Settings::UI::Windows::Custommodel::sizeX = 1050;
+int Settings::UI::Windows::Custommodel::sizeY = 645;
+int Settings::UI::Windows::Custommodel::posX = 1050;
+int Settings::UI::Windows::Custommodel::posY = 645;
+
 int Settings::UI::Windows::Spectators::sizeX = 50;
 int Settings::UI::Windows::Spectators::sizeY = 100;
 int Settings::UI::Windows::Spectators::posX = 50;
@@ -49,6 +54,7 @@ bool Settings::UI::Windows::Colors::open = false;
 bool Settings::UI::Windows::Config::open = false;
 bool Settings::UI::Windows::Playerlist::open = false;
 bool Settings::UI::Windows::Skinmodel::open = false;
+bool Settings::UI::Windows::Custommodel::open = false;
 bool Settings::UI::Windows::Walkbot::open = false;
 
 bool Settings::UI::Windows::Main::reload = false;
@@ -56,6 +62,7 @@ bool Settings::UI::Windows::Colors::reload = false;
 bool Settings::UI::Windows::Config::reload = false;
 bool Settings::UI::Windows::Playerlist::reload = false;
 bool Settings::UI::Windows::Skinmodel::reload = false;
+bool Settings::UI::Windows::Custommodel::reload = false;
 bool Settings::UI::Windows::Spectators::reload = false;
 bool Settings::UI::Windows::Walkbot::reload = false;
 
@@ -74,6 +81,8 @@ void SetupMainMenuBar()
 		if (ModSupport::current_mod != ModType::CSCO)
 		{
 			ImGui::Selectable(XORSTR("Skin & Model Changer Window"), &SkinModelChanger::showWindow, 0, ImVec2(ImGui::CalcTextSize(XORSTR("Skin & Model Changer Window"), NULL, true).x, 0.0f));
+			ImGui::SameLine();
+			ImGui::Selectable(XORSTR("Custom model changer"), &CustomModelChanger::showWindow, 0, ImVec2(ImGui::CalcTextSize(XORSTR("Custom model changer"), NULL, true).x, 0.0f));
 			ImGui::SameLine();
 		}
 
@@ -94,7 +103,7 @@ void SetupMainMenuBar()
 
 		if( ImGui::Button(XORSTR("Unload   "), ImVec2(ImGui::CalcTextSize(XORSTR("Unload   "), NULL, true).x, 0.0f)) )
 		{
-			Fuzion::SelfShutdown();
+			random_epta::SelfShutdown();
 		}
 
 		ImGui::PopStyleVar();
@@ -110,7 +119,8 @@ void UI::SwapWindow()
 	if (engine->IsInGame())
 		return;
 
-	Draw::ImDrawText(ImVec2(4.f, 4.f), ImColor(255, 255, 255, 255), XORSTR("Fuzion"), NULL, 0.0f, NULL, ImFontFlags_Shadow);
+	Draw::ImText( ImVec2( 4.f, 4.f ), ImColor( 255, 255, 255, 255 ), XORSTR("SimplePort by MegaRak64"), NULL, 0.0f, NULL, 
+		ImFontFlags_Shadow );
 }
 
 void UI::SetVisible(bool visible)
@@ -134,6 +144,10 @@ void UI::SetupWindows()
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(1050, 645));
 				SkinModelChanger::RenderWindow();
 			ImGui::PopStyleVar();
+			ImGui::PushStyleVar(ImGuiStyleVar_WindowMinSize, ImVec2(800, 480));
+				CustomModelChanger::RenderWindow();
+			ImGui::PopStyleVar();
+
 		}
 
 		Configs::RenderWindow();

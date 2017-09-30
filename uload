@@ -11,6 +11,7 @@ if [ -f build_id ]; then
     sudo gdb -n -q -batch-silent \
     	-ex "set logging on" \
         -ex "set logging file /dev/null" \
+        -ex "set logging redirect on" \
         -ex "attach $csgo_pid" \
         -ex "set \$dlopen = (void*(*)(char*, int)) dlopen" \
         -ex "set \$dlclose = (int(*)(void*)) dlclose" \
@@ -29,6 +30,7 @@ if [ -f build_id_old ]; then
     sudo gdb -n -q -batch-silent \
         -ex "set logging on" \
         -ex "set logging file /dev/null" \
+        -ex "set logging redirect on" \
         -ex "attach $csgo_pid" \
         -ex "set \$dlopen = (void*(*)(char*, int)) dlopen" \
         -ex "set \$dlclose = (int(*)(void*)) dlclose" \

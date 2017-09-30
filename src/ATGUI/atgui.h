@@ -14,6 +14,7 @@
 #include "Windows/colors.h"
 #include "Windows/main.h"
 #include "Windows/walk.h"
+#include "Windows/custommodelchanger.h"
 #include "Tabs/aimbottab.h"
 #include "Tabs/triggerbottab.h"
 #include "Tabs/visualstab.h"

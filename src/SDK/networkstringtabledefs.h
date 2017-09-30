@@ -85,6 +85,7 @@ class CNetworkStringTableContainer
 		INetworkStringTable* FindTable(const char *tableName)
 		{
 			typedef INetworkStringTable* (* oFindTable)(void*, const char*);
-			return getvfunc<oFindTable>(this, 3)(this, tableName);
+			return getvfunc<oFindTable>(this, 4)(this, tableName);
 		}
 };
+

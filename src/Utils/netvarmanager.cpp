@@ -1,5 +1,8 @@
 #include "netvarmanager.h"
-
+#include "../hooker.h"
+#include <iostream>
+#include <fstream>
+//extern auto ClientStringTableContainer = (CNetworkStringTableContainer*) EngineFactory("VEngineClientStringTable001", NULL);
 std::vector<RecvTable*> NetVarManager::GetTables()
 {
 	std::vector<RecvTable*> tables;
@@ -146,18 +149,30 @@ void NetVarManager::DumpNetvars()
 
 	std::ofstream(netvarsPath) << ss.str();
 }
-/*
-bool NetVarManager::PrecacheModel(const char* szModelName)
-{
-    CNetworkStringTable* m_pModelPrecacheTable = ClientStringTableContainer->FindTable("modelprecache");
- 
+
+bool PrecacheModel(const char* szModelName)
+{	
+	//https://www.unknowncheats.me/forum/counterstrike-global-offensive/214919-precache-models.html
+	//Get file address
+	void* handle_epta = dlopen("./bin/linux64/engine_client.so", RTLD_NOLOAD | RTLD_NOW | RTLD_GLOBAL | RTLD_NODELETE);
+	//Help me, please. It need migrating and xoring this shit
+	//Get function address
+	CreateInterfaceFn EngineFactory = (CreateInterfaceFn) dlsym(handle_epta, "CreateInterface");
+	//Hooking function
+	CNetworkStringTableContainer* ClientStringTableContainer = (CNetworkStringTableContainer*) EngineFactory("VEngineClientStringTable001", NULL);
+		
+	int dlclose(void* handle_epta);
+	//Hooking table	
+    INetworkStringTable* m_pModelPrecacheTable = ClientStringTableContainer->FindTable("modelprecache");
+    
 	if (m_pModelPrecacheTable)
 	{
-		ModelInfo->FindOrLoadModel(szModelName);
+		modelInfo->FindOrLoadModel(szModelName);
 		int idx = m_pModelPrecacheTable->AddString(false, szModelName);
 		if (idx == INVALID_STRING_INDEX)
 			return false;
 	}
 	return true;
+	
 }
-*/
+

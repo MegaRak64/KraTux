@@ -3,7 +3,7 @@
 #include "../Hooks/hooks.h"
 #include "../interfaces.h"
 #include "../settings.h"
-
+#include "../Utils/netvarmanager.h"
 namespace Chams
 {
 	//Hooks

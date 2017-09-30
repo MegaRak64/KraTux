@@ -145,62 +145,62 @@ void Settings::LoadDefaultsOrSave(std::string path)
 		// TODO this is kind of a hack and i'm too tired to find a better way to do this
 		// yes i tried defining a variable, skinSetting, and giving it the same value but woooooo operator overloading
 		// in C++ and weird shit
-		#define weaponSetting settings["Aimbot"]["weapons"][Util::Items::GetItemName((enum ItemDefinitionIndex) i.first)]
-		weaponSetting["Enabled"] = i.second.enabled;
-		weaponSetting["Silent"] = i.second.silent;
-		weaponSetting["pSilent"] = i.second.pSilent;
-		weaponSetting["Friendly"] = i.second.friendly;
-		weaponSetting["ClosestBone"] = i.second.closestBone;
-		weaponSetting["engageLock"] = i.second.engageLock;
-		weaponSetting["engageLockTR"] = i.second.engageLockTR;
-		weaponSetting["engageLockTTR"] = i.second.engageLockTTR;
-		weaponSetting["TargetBone"] = (int) i.second.bone;
-		weaponSetting["AimKey"] = Util::GetButtonName(i.second.aimkey);
-		weaponSetting["AimKeyOnly"] = i.second.aimkeyOnly;
-		weaponSetting["Smooth"]["Enabled"] = i.second.smoothEnabled;
-		weaponSetting["Smooth"]["Amount"] = i.second.smoothAmount;
-		weaponSetting["Smooth"]["Type"] = (int) i.second.smoothType;
-		weaponSetting["Smooth"]["Salting"]["Enabled"] = i.second.smoothSaltEnabled;
-		weaponSetting["Smooth"]["Salting"]["Multiplier"] = i.second.smoothSaltMultiplier;
-		weaponSetting["ErrorMargin"]["Enabled"] = i.second.errorMarginEnabled;
-		weaponSetting["ErrorMargin"]["Value"] = i.second.errorMarginValue;
-		weaponSetting["Curve"]["Enabled"] = i.second.curveEnabled;
-		weaponSetting["Curve"]["Amount"] = i.second.curveAmount;
-		weaponSetting["AutoAim"]["Enabled"] = i.second.autoAimEnabled;
-		weaponSetting["AutoAim"]["FOV"] = i.second.autoAimFov;
-		weaponSetting["AimStep"]["Enabled"] = i.second.aimStepEnabled;
-		weaponSetting["AimStep"]["Amount"] = i.second.aimStepValue;
-		weaponSetting["RCS"]["Enabled"] = i.second.rcsEnabled;
-		weaponSetting["RCS"]["AlwaysOn"] = i.second.rcsAlwaysOn;
-		weaponSetting["RCS"]["AmountX"] = i.second.rcsAmountX;
-		weaponSetting["RCS"]["AmountY"] = i.second.rcsAmountY;
-		weaponSetting["AutoCockRevolver"]["Enabled"] = i.second.autoCockRevolver;
-		weaponSetting["AutoPistol"]["Enabled"] = i.second.autoPistolEnabled;
-		weaponSetting["AutoShoot"]["Enabled"] = i.second.autoShootEnabled;
-		weaponSetting["AutoScope"]["Enabled"] = i.second.autoScopeEnabled;
-		weaponSetting["NoShoot"]["Enabled"] = i.second.noShootEnabled;
-		weaponSetting["IgnoreJump"]["Enabled"] = i.second.ignoreJumpEnabled;
-		weaponSetting["SmokeCheck"]["Enabled"] = i.second.smokeCheck;
-		weaponSetting["FlashCheck"]["Enabled"] = i.second.flashCheck;
-		weaponSetting["SpreadLimit"]["Enabled"] = i.second.spreadLimitEnabled;
-		weaponSetting["SpreadLimit"]["DistanceBased"] = i.second.spreadLimitDistance;
-		weaponSetting["SpreadLimit"]["Value"] = i.second.spreadLimit;
-		weaponSetting["AutoWall"]["Enabled"] = i.second.autoWallEnabled;
-		weaponSetting["AutoWall"]["Value"] = i.second.autoWallValue;
-		weaponSetting["AutoSlow"]["enabled"] = i.second.autoSlow;
-		weaponSetting["Prediction"]["enabled"] = i.second.predEnabled;
-		weaponSetting["moveMouse"] = i.second.moveMouse;
-		weaponSetting["HitChance"]["enabled"] = i.second.hitChanceEnabled;
-		weaponSetting["HitChance"]["hitRays"] = i.second.hitChanceRays;
-		weaponSetting["HitChance"]["value"] = i.second.hitChanceValue;
+		#define weaponSetting settings[XORSTR("Aimbot")][XORSTR("weapons")][Util::Items::GetItemName((enum ItemDefinitionIndex) i.first)]
+		weaponSetting[XORSTR("Enabled")] = i.second.enabled;
+		weaponSetting[XORSTR("Silent")] = i.second.silent;
+		weaponSetting[XORSTR("pSilent")] = i.second.pSilent;
+		weaponSetting[XORSTR("Friendly")] = i.second.friendly;
+		weaponSetting[XORSTR("ClosestBone")] = i.second.closestBone;
+		weaponSetting[XORSTR("engageLock")] = i.second.engageLock;
+		weaponSetting[XORSTR("engageLockTR")] = i.second.engageLockTR;
+		weaponSetting[XORSTR("engageLockTTR")] = i.second.engageLockTTR;
+		weaponSetting[XORSTR("TargetBone")] = (int) i.second.bone;
+		weaponSetting[XORSTR("AimKey")] = Util::GetButtonName(i.second.aimkey);
+		weaponSetting[XORSTR("AimKeyOnly")] = i.second.aimkeyOnly;
+		weaponSetting[XORSTR("Smooth")][XORSTR("Enabled")] = i.second.smoothEnabled;
+		weaponSetting[XORSTR("Smooth")][XORSTR("Amount")] = i.second.smoothAmount;
+		weaponSetting[XORSTR("Smooth")][XORSTR("Type")] = (int) i.second.smoothType;
+		weaponSetting[XORSTR("Smooth")][XORSTR("Salting")][XORSTR("Enabled")] = i.second.smoothSaltEnabled;
+		weaponSetting[XORSTR("Smooth")][XORSTR("Salting")][XORSTR("Multiplier")] = i.second.smoothSaltMultiplier;
+		weaponSetting[XORSTR("ErrorMargin")][XORSTR("Enabled")] = i.second.errorMarginEnabled;
+		weaponSetting[XORSTR("ErrorMargin")][XORSTR("Value")] = i.second.errorMarginValue;
+		weaponSetting[XORSTR("Curve")][XORSTR("Enabled")] = i.second.curveEnabled;
+		weaponSetting[XORSTR("Curve")][XORSTR("Amount")] = i.second.curveAmount;
+		weaponSetting[XORSTR("AutoAim")][XORSTR("Enabled")] = i.second.autoAimEnabled;
+		weaponSetting[XORSTR("AutoAim")][XORSTR("FOV")] = i.second.autoAimFov;
+		weaponSetting[XORSTR("AimStep")][XORSTR("Enabled")] = i.second.aimStepEnabled;
+		weaponSetting[XORSTR("AimStep")][XORSTR("Amount")] = i.second.aimStepValue;
+		weaponSetting[XORSTR("RCS")][XORSTR("Enabled")] = i.second.rcsEnabled;
+		weaponSetting[XORSTR("RCS")][XORSTR("AlwaysOn")] = i.second.rcsAlwaysOn;
+		weaponSetting[XORSTR("RCS")][XORSTR("AmountX")] = i.second.rcsAmountX;
+		weaponSetting[XORSTR("RCS")][XORSTR("AmountY")] = i.second.rcsAmountY;
+		weaponSetting[XORSTR("AutoCockRevolver")][XORSTR("Enabled")] = i.second.autoCockRevolver;
+		weaponSetting[XORSTR("AutoPistol")][XORSTR("Enabled")] = i.second.autoPistolEnabled;
+		weaponSetting[XORSTR("AutoShoot")][XORSTR("Enabled")] = i.second.autoShootEnabled;
+		weaponSetting[XORSTR("AutoScope")][XORSTR("Enabled")] = i.second.autoScopeEnabled;
+		weaponSetting[XORSTR("NoShoot")][XORSTR("Enabled")] = i.second.noShootEnabled;
+		weaponSetting[XORSTR("IgnoreJump")][XORSTR("Enabled")] = i.second.ignoreJumpEnabled;
+		weaponSetting[XORSTR("SmokeCheck")][XORSTR("Enabled")] = i.second.smokeCheck;
+		weaponSetting[XORSTR("FlashCheck")][XORSTR("Enabled")] = i.second.flashCheck;
+		weaponSetting[XORSTR("SpreadLimit")][XORSTR("Enabled")] = i.second.spreadLimitEnabled;
+		weaponSetting[XORSTR("SpreadLimit")][XORSTR("DistanceBased")] = i.second.spreadLimitDistance;
+		weaponSetting[XORSTR("SpreadLimit")][XORSTR("Value")] = i.second.spreadLimit;
+		weaponSetting[XORSTR("AutoWall")][XORSTR("Enabled")] = i.second.autoWallEnabled;
+		weaponSetting[XORSTR("AutoWall")][XORSTR("Value")] = i.second.autoWallValue;
+		weaponSetting[XORSTR("AutoSlow")][XORSTR("enabled")] = i.second.autoSlow;
+		weaponSetting[XORSTR("Prediction")][XORSTR("enabled")] = i.second.predEnabled;
+		weaponSetting[XORSTR("moveMouse")] = i.second.moveMouse;
+		weaponSetting[XORSTR("HitChance")][XORSTR("enabled")] = i.second.hitChanceEnabled;
+		weaponSetting[XORSTR("HitChance")][XORSTR("hitRays")] = i.second.hitChanceRays;
+		weaponSetting[XORSTR("HitChance")][XORSTR("value")] = i.second.hitChanceValue;
 
 		for (int bone = (int) Hitbox::HITBOX_HEAD; bone <= (int) Hitbox::HITBOX_ARMS; bone++)
-			weaponSetting["AutoWall"]["Bones"][bone] = i.second.autoWallBones[bone];
+			weaponSetting[XORSTR("AutoWall")][XORSTR("Bones")][bone] = i.second.autoWallBones[bone];
 
 		for (int bone = (int) DesiredBones::BONE_PELVIS; bone <= (int) DesiredBones::BONE_RIGHT_SOLE; bone++)
-			weaponSetting["DesiredBones"]["Bones"][bone] = i.second.desiredBones[bone];
+			weaponSetting[XORSTR("DesiredBones")][XORSTR("Bones")][bone] = i.second.desiredBones[bone];
 
-		weaponSetting["AutoAim"]["RealDistance"] = i.second.autoAimRealDistance;
+		weaponSetting[XORSTR("AutoAim")][XORSTR("RealDistance")] = i.second.autoAimRealDistance;
 
 		#undef weaponSetting
 	}
@@ -450,7 +450,13 @@ void Settings::LoadDefaultsOrSave(std::string path)
 	settings[XORSTR("SkinChanger")][XORSTR("Skins")][XORSTR("enabled")] = Settings::Skinchanger::Skins::enabled;
 	settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("enabled")] = Settings::Skinchanger::Models::enabled;
 	settings[XORSTR("SkinChanger")][XORSTR("Skins")][XORSTR("perTeam")] = Settings::Skinchanger::Skins::perTeam;
-
+	
+	settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("enabled")] = Settings::Skinchanger::Models::Players::enabled;
+	settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("enemyteam")][XORSTR("colgate")] = Settings::Skinchanger::Models::Players::enemyteam::colgate;
+	settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("yourteam")][XORSTR("colgate")] = Settings::Skinchanger::Models::Players::yourteam::colgate;
+	settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("enemyteam")][XORSTR("enabled")] = Settings::Skinchanger::Models::Players::enemyteam::enabled;
+	settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("yourteam")][XORSTR("enabled")] = Settings::Skinchanger::Models::Players::yourteam::enabled;
+	
 	for (const auto& item: Settings::Skinchanger::skinsCT)
 	{
 		const AttribItem_t& skin = item.second;
@@ -488,6 +494,12 @@ void Settings::LoadDefaultsOrSave(std::string path)
 	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Colors")][XORSTR("sizeX")] = Settings::UI::Windows::Colors::sizeX;
 	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Colors")][XORSTR("sizeY")] = Settings::UI::Windows::Colors::sizeY;
 	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Colors")][XORSTR("open")] = Settings::UI::Windows::Colors::open;
+	
+	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("posX")] = Settings::UI::Windows::Custommodel::posX;
+	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("posY")] = Settings::UI::Windows::Custommodel::posY;
+	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("sizeX")] = Settings::UI::Windows::Custommodel::sizeX;
+	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("sizeY")] = Settings::UI::Windows::Custommodel::sizeY;
+	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("open")] = Settings::UI::Windows::Custommodel::open;
 
 	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Config")][XORSTR("posX")] = Settings::UI::Windows::Config::posX;
 	settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Config")][XORSTR("posY")] = Settings::UI::Windows::Config::posY;
@@ -604,6 +616,7 @@ void Settings::LoadDefaultsOrSave(std::string path)
 
 void Settings::LoadConfig(std::string path)
 {
+	Util::RestoreLinkMapEntry(random_epta::prev, random_epta::curr, random_epta::next); // the Linkmap meme breaks config loading, so we need to restore it before we load.
 	TracerEffect::RestoreTracers();
 	if (!std::ifstream(path).good())
 	{
@@ -650,65 +663,65 @@ void Settings::LoadConfig(std::string path)
 			Settings::Aimbot::weapons[weaponID] = AimbotWeapon_t();
 
 		AimbotWeapon_t weapon = {
-weaponSetting["Enabled"].asBool(),
-				weaponSetting["Silent"].asBool(),
-				weaponSetting["pSilent"].asBool(),
-				weaponSetting["Friendly"].asBool(),
-				weaponSetting["ClosestBone"].asBool(),
-				weaponSetting["engageLock"].asBool(),
-				weaponSetting["engageLockTR"].asBool(),
-				weaponSetting["engageLockTTR"].asInt(),
-				(Bone) weaponSetting["TargetBone"].asInt(),
-				Util::GetButtonCode(weaponSetting["AimKey"].asCString()),
-				weaponSetting["AimKeyOnly"].asBool(),
-				weaponSetting["Smooth"]["Enabled"].asBool(),
-				weaponSetting["Smooth"]["Amount"].asFloat(),
-				(SmoothType) weaponSetting["Smooth"]["Type"].asInt(),
-				weaponSetting["Smooth"]["Salting"]["Enabled"].asBool(),
-				weaponSetting["Smooth"]["Salting"]["Multiplier"].asFloat(),
-				weaponSetting["ErrorMargin"]["Enabled"].asBool(),
-				weaponSetting["ErrorMargin"]["Value"].asFloat(),
-				weaponSetting["Curve"]["Enabled"].asBool(),
-				weaponSetting["Curve"]["Amount"].asFloat(),
-				weaponSetting["AutoAim"]["Enabled"].asBool(),
-				weaponSetting["AutoAim"]["FOV"].asFloat(),
-				weaponSetting["AimStep"]["Enabled"].asBool(),
-				weaponSetting["AimStep"]["Amount"].asFloat(),
-				weaponSetting["RCS"]["Enabled"].asBool(),
-				weaponSetting["RCS"]["AlwaysOn"].asBool(),
-				weaponSetting["RCS"]["AmountX"].asFloat(),
-				weaponSetting["RCS"]["AmountY"].asFloat(),
-				weaponSetting["AutoCockRevolver"]["Enabled"].asBool(),
-				weaponSetting["AutoPistol"]["Enabled"].asBool(),
-				weaponSetting["AutoShoot"]["Enabled"].asBool(),
-				weaponSetting["AutoScope"]["Enabled"].asBool(),
-				weaponSetting["NoShoot"]["Enabled"].asBool(),
-				weaponSetting["IgnoreJump"]["Enabled"].asBool(),
-				weaponSetting["SmokeCheck"]["Enabled"].asBool(),
-				weaponSetting["FlashCheck"]["Enabled"].asBool(),
-				weaponSetting["SpreadLimit"]["Enabled"].asBool(),
-				weaponSetting["SpreadLimit"]["DistanceBased"].asBool(),
-				weaponSetting["SpreadLimit"]["Value"].asFloat(),
-				weaponSetting["AutoWall"]["Enabled"].asBool(),
-				weaponSetting["AutoWall"]["Value"].asFloat(),
-				weaponSetting["AutoAim"]["RealDistance"].asBool(),
-				weaponSetting["AutoSlow"]["enabled"].asBool(),
-				weaponSetting["Prediction"]["enabled"].asBool(),
-				weaponSetting["moveMouse"].asBool(),
-				weaponSetting["HitChance"]["enabled"].asBool(),
-				weaponSetting["HitChance"]["hitRays"].asInt(),
-				weaponSetting["HitChance"]["value"].asFloat()
+				weaponSetting[XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("Silent")].asBool(),
+				weaponSetting[XORSTR("pSilent")].asBool(),
+				weaponSetting[XORSTR("Friendly")].asBool(),
+				weaponSetting[XORSTR("ClosestBone")].asBool(),
+				weaponSetting[XORSTR("engageLock")].asBool(),
+				weaponSetting[XORSTR("engageLockTR")].asBool(),
+				weaponSetting[XORSTR("engageLockTTR")].asInt(),
+				(Bone) weaponSetting[XORSTR("TargetBone")].asInt(),
+				Util::GetButtonCode(weaponSetting[XORSTR("AimKey")].asCString()),
+				weaponSetting[XORSTR("AimKeyOnly")].asBool(),
+				weaponSetting[XORSTR("Smooth")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("Smooth")][XORSTR("Amount")].asFloat(),
+				(SmoothType) weaponSetting[XORSTR("Smooth")][XORSTR("Type")].asInt(),
+				weaponSetting[XORSTR("Smooth")][XORSTR("Salting")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("Smooth")][XORSTR("Salting")][XORSTR("Multiplier")].asFloat(),
+				weaponSetting[XORSTR("ErrorMargin")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("ErrorMargin")][XORSTR("Value")].asFloat(),
+				weaponSetting[XORSTR("Curve")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("Curve")][XORSTR("Amount")].asFloat(),
+				weaponSetting[XORSTR("AutoAim")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("AutoAim")][XORSTR("FOV")].asFloat(),
+				weaponSetting[XORSTR("AimStep")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("AimStep")][XORSTR("Amount")].asFloat(),
+				weaponSetting[XORSTR("RCS")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("RCS")][XORSTR("AlwaysOn")].asBool(),
+				weaponSetting[XORSTR("RCS")][XORSTR("AmountX")].asFloat(),
+				weaponSetting[XORSTR("RCS")][XORSTR("AmountY")].asFloat(),
+				weaponSetting[XORSTR("AutoCockRevolver")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("AutoPistol")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("AutoShoot")][XORSTR("Enabled")].asBool(),
+				weaponSetting[XORSTR("AutoScope")]["Enabled"].asBool(),
+				weaponSetting[XORSTR("NoShoot")]["Enabled"].asBool(),
+				weaponSetting[XORSTR("IgnoreJump")]["Enabled"].asBool(),
+				weaponSetting[XORSTR("SmokeCheck")]["Enabled"].asBool(),
+				weaponSetting[XORSTR("FlashCheck")]["Enabled"].asBool(),
+				weaponSetting[XORSTR("SpreadLimit")]["Enabled"].asBool(),
+				weaponSetting[XORSTR("SpreadLimit")]["DistanceBased"].asBool(),
+				weaponSetting[XORSTR("SpreadLimit")]["Value"].asFloat(),
+				weaponSetting[XORSTR("AutoWall")]["Enabled"].asBool(),
+				weaponSetting[XORSTR("AutoWall")]["Value"].asFloat(),
+				weaponSetting[XORSTR("AutoAim")]["RealDistance"].asBool(),
+				weaponSetting[XORSTR("AutoSlow")]["enabled"].asBool(),
+				weaponSetting[XORSTR("Prediction")]["enabled"].asBool(),
+				weaponSetting[XORSTR("moveMouse")].asBool(),
+				weaponSetting[XORSTR("HitChance")]["enabled"].asBool(),
+				weaponSetting[XORSTR("HitChance")]["hitRays"].asInt(),
+				weaponSetting[XORSTR("HitChance")]["value"].asFloat()
 		};
 
 		for (int bone = (int) Hitbox::HITBOX_HEAD; bone <= (int) Hitbox::HITBOX_ARMS; bone++)
-			weapon.autoWallBones[bone] = weaponSetting["AutoWall"]["Bones"][bone].asBool();
+			weapon.autoWallBones[bone] = weaponSetting[XORSTR("AutoWall")][XORSTR("Bones")][bone].asBool();
 		for (int bone = (int) DesiredBones::BONE_PELVIS; bone <= (int) DesiredBones::BONE_RIGHT_SOLE; bone++)
-			weapon.desiredBones[bone] = weaponSetting["DesiredBones"]["Bones"][bone].asBool();
+			weapon.desiredBones[bone] = weaponSetting[XORSTR("DesiredBones")][XORSTR("Bones")][bone].asBool();
 		Settings::Aimbot::weapons.at(weaponID) = weapon;
 	}
 
-	GetVal(settings["Aimbot"]["AutoCrouch"]["enabled"], &Settings::Aimbot::AutoCrouch::enabled);
-	GetVal(settings["Aimbot"]["AutoShoot"]["velocityCheck"], &Settings::Aimbot::AutoShoot::velocityCheck);
+	GetVal(settings[XORSTR("Aimbot")][XORSTR("AutoCrouch")][XORSTR("enabled")], &Settings::Aimbot::AutoCrouch::enabled);
+	GetVal(settings[XORSTR("Aimbot")][XORSTR("AutoShoot")][XORSTR("velocityCheck")], &Settings::Aimbot::AutoShoot::velocityCheck);
 
 
 	GetVal(settings[XORSTR("Resolver")][XORSTR("resolve_all")], &Settings::Resolver::resolveAll);
@@ -1029,7 +1042,13 @@ weaponSetting["Enabled"].asBool(),
 	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Skins")][XORSTR("enabled")], &Settings::Skinchanger::Skins::enabled);
 	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("enabled")], &Settings::Skinchanger::Models::enabled);
 	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Skins")][XORSTR("perTeam")], &Settings::Skinchanger::Skins::perTeam);
-
+	
+	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("enabled")], &Settings::Skinchanger::Models::Players::enabled);
+	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("enemyteam")][XORSTR("colgate")], Settings::Skinchanger::Models::Players::enemyteam::colgate);
+	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("yourteam")][XORSTR("colgate")], Settings::Skinchanger::Models::Players::yourteam::colgate);
+	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("enemyteam")][XORSTR("enabled")], &Settings::Skinchanger::Models::Players::enemyteam::enabled);
+	GetVal(settings[XORSTR("SkinChanger")][XORSTR("Models")][XORSTR("Players")][XORSTR("yourteam")][XORSTR("enabled")], &Settings::Skinchanger::Models::Players::yourteam::enabled);
+	
 	GetVal(settings[XORSTR("ShowRanks")][XORSTR("enabled")], &Settings::ShowRanks::enabled);
 
 	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Colors")][XORSTR("posX")], &Settings::UI::Windows::Colors::posX);
@@ -1043,6 +1062,12 @@ weaponSetting["Enabled"].asBool(),
 	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Config")][XORSTR("sizeX")], &Settings::UI::Windows::Config::sizeX);
 	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Config")][XORSTR("sizeY")], &Settings::UI::Windows::Config::sizeY);
 	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Config")][XORSTR("open")], &Settings::UI::Windows::Config::open);
+	
+	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("posX")], &Settings::UI::Windows::Custommodel::posX);
+	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("posY")], &Settings::UI::Windows::Custommodel::posY);
+	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("sizeX")], &Settings::UI::Windows::Custommodel::sizeX);
+	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("sizeY")], &Settings::UI::Windows::Custommodel::sizeY);
+	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Custommodel")][XORSTR("open")], &Settings::UI::Windows::Custommodel::open);
 
 	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Main")][XORSTR("posX")], &Settings::UI::Windows::Main::posX);
 	GetVal(settings[XORSTR("UI")][XORSTR("Windows")][XORSTR("Main")][XORSTR("posY")], &Settings::UI::Windows::Main::posY);
@@ -1158,6 +1183,7 @@ weaponSetting["Enabled"].asBool(),
  	GetVal(settings[XORSTR("AutoKnife")][XORSTR("Filters")][XORSTR("enemies")], &Settings::AutoKnife::Filters::enemies);
  	GetVal(settings[XORSTR("AutoKnife")][XORSTR("Filters")][XORSTR("allies")], &Settings::AutoKnife::Filters::allies);
  	GetVal(settings[XORSTR("AutoKnife")][XORSTR("onKey")], &Settings::AutoKnife::onKey);
+ 	Util::RemoveLinkMapEntry(random_epta::buildID, &random_epta::prev, &random_epta::curr, &random_epta::next); // Enable linkmap meme again.
 
 
 }

@@ -10,9 +10,9 @@
 #include <pwd.h>
 #include <zconf.h>
 #include <fstream>
-
 #include "../SDK/SDK.h"
 #include "../interfaces.h"
+#include <dlfcn.h>
 
 namespace NetVarManager
 {
@@ -24,6 +24,9 @@ namespace NetVarManager
 	std::string DumpTable(RecvTable* table, int depth);
 	bool HookProp(const char* tableName, const char* propName, RecvVarProxyFn f);
 	void DumpNetvars();
-	
-	//bool PrecacheModel(const char* szModelName);
 }
+
+	//void PISOS(void);
+//extern CreateInterfaceFn EngineFactory;
+	bool PrecacheModel(const char* szModelName);
+

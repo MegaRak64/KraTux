@@ -4,8 +4,15 @@ bool Settings::Skinchanger::Models::enabled = false;
 
 bool Settings::Skinchanger::Skins::perTeam = true;
 
+//My settings
+bool Settings::Skinchanger::Models::Players::enabled = false;
+char Settings::Skinchanger::Models::Players::enemyteam::colgate[127] = "models/player/custom_player/legacy/doomslayer/doomslayer.mdl";
+char Settings::Skinchanger::Models::Players::yourteam::colgate[127] = "models/player/custom_player/legacy/doomslayer/doomslayer.mdl";
+bool Settings::Skinchanger::Models::Players::enemyteam::enabled = false;
+bool Settings::Skinchanger::Models::Players::yourteam::enabled = false;
+
 std::unordered_map<ItemDefinitionIndex, AttribItem_t, Util::IntHash<ItemDefinitionIndex>> Settings::Skinchanger::skinsCT = {
-		{ ItemDefinitionIndex::WEAPON_AK47 /*WeaponID*/, { ItemDefinitionIndex::INVALID /*itemDefinitionIndex*/, 524 /*fallbackPaintKit*/, 0.0005f /*fallbackWear*/, -1 /*fallbackSeed*/, 1337/*fallbackStatTrak*/, -1/*fallbackEntityQuality*/, "TestTux"/*customName*/ } },
+		{ ItemDefinitionIndex::WEAPON_AK47 /*WeaponID*/, { ItemDefinitionIndex::INVALID /*itemDefinitionIndex*/, 524 /*fallbackPaintKit*/, 0.0005f /*fallbackWear*/, -1 /*fallbackSeed*/, 1337/*fallbackStatTrak*/, -1/*fallbackEntityQuality*/, XORSTR("TestTux")/*customName*/ } },
 		{ ItemDefinitionIndex::WEAPON_KNIFE, { ItemDefinitionIndex::WEAPON_KNIFE_M9_BAYONET, -1, -1, -1, -1, -1, "" } },
 		{ ItemDefinitionIndex::GLOVE_CT_SIDE, { ItemDefinitionIndex::GLOVE_SPECIALIST, 10006, 0.0005f, -1, -1, -1, "" } },
 		{ ItemDefinitionIndex::GLOVE_T_SIDE, { ItemDefinitionIndex::GLOVE_STUDDED_BLOODHOUND, 10006, 0.0005f, -1, -1, -1, "" } },
@@ -28,7 +35,7 @@ std::unordered_map<ItemDefinitionIndex, AttribItem_t, Util::IntHash<ItemDefiniti
 };
 
 std::unordered_map<ItemDefinitionIndex, AttribItem_t, Util::IntHash<ItemDefinitionIndex>> Settings::Skinchanger::skinsT = {
-		{ ItemDefinitionIndex::WEAPON_AK47 /*WeaponID*/, { ItemDefinitionIndex::INVALID /*itemDefinitionIndex*/, 524 /*fallbackPaintKit*/, 0.0005f /*fallbackWear*/, -1 /*fallbackSeed*/, 1337/*fallbackStatTrak*/, -1/*fallbackEntityQuality*/, "TestTux"/*customName*/ } },
+		{ ItemDefinitionIndex::WEAPON_AK47 /*WeaponID*/, { ItemDefinitionIndex::INVALID /*itemDefinitionIndex*/, 524 /*fallbackPaintKit*/, 0.0005f /*fallbackWear*/, -1 /*fallbackSeed*/, 1337/*fallbackStatTrak*/, -1/*fallbackEntityQuality*/, XORSTR("TestTux")/*customName*/ } },
 		{ ItemDefinitionIndex::WEAPON_KNIFE_T, { ItemDefinitionIndex::WEAPON_KNIFE_KARAMBIT, -1, -1, -1, -1, -1, "" } },
 		{ ItemDefinitionIndex::GLOVE_T_SIDE, { ItemDefinitionIndex::GLOVE_STUDDED_BLOODHOUND, 10006, 0.0005f, -1, -1, -1, "" } },
 		{ ItemDefinitionIndex::GLOVE_STUDDED_BLOODHOUND, { ItemDefinitionIndex::INVALID, 10006, 0.0005f, -1, -1, -1, ""} },
@@ -110,7 +117,48 @@ void SkinChanger::FrameStageNotifyModels(ClientFrameStage_t stage)
 				}
 			}
 		}
-
+		//Simple player model changer
+		//Maybe in future i create separately entitny model changer (Nu, nu)
+		
+		if (Settings::Skinchanger::Models::Players::enabled)
+		{
+			if (Settings::Skinchanger::Models::Players::enemyteam::colgate != NULL && Settings::Skinchanger::Models::Players::yourteam::colgate != NULL)
+			{
+				for (int i = 1; i < engine->GetMaxClients(); ++i)
+				{
+				C_BasePlayer* player = (C_BasePlayer*) entityList->GetClientEntity(i);
+				
+				if (!player
+				|| player == localplayer
+				|| player->GetDormant()
+				|| !player->GetAlive()
+				|| player->GetImmune()
+				|| player->GetTeam() != localplayer->GetTeam())
+				{
+					if (Settings::Skinchanger::Models::Players::enemyteam::enabled)
+					{
+					PrecacheModel(Settings::Skinchanger::Models::Players::enemyteam::colgate);
+					player->SetModelIndex(modelInfo->GetModelIndex(Settings::Skinchanger::Models::Players::enemyteam::colgate));
+					}
+				}
+				else if (!player
+				|| player == localplayer
+				|| player->GetDormant()
+				|| !player->GetAlive()
+				|| player->GetImmune()
+				|| player->GetTeam() == localplayer->GetTeam())
+				{
+					if (Settings::Skinchanger::Models::Players::yourteam::enabled)
+					{
+					PrecacheModel(Settings::Skinchanger::Models::Players::yourteam::colgate);
+					player->SetModelIndex(modelInfo->GetModelIndex(Settings::Skinchanger::Models::Players::yourteam::colgate));
+					}
+				}
+				}
+			
+			}
+		}
+		
 		C_BaseViewModel *viewmodel = (C_BaseViewModel *) entityList->GetClientEntityFromHandle(localplayer->GetViewModel());
 		if (!viewmodel)
 			return;
@@ -122,9 +170,13 @@ void SkinChanger::FrameStageNotifyModels(ClientFrameStage_t stage)
 		if (ItemDefinitionIndexMap.find(*activeWeapon->GetItemDefinitionIndex()) != ItemDefinitionIndexMap.end())
 			if (Settings::Skinchanger::Models::enabled)
 				*viewmodel->GetModelIndex() = modelInfo->GetModelIndex(ItemDefinitionIndexMap.at(*activeWeapon->GetItemDefinitionIndex()).entityModel);
-				if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_AK47)
-					*viewmodel->GetModelIndex() = modelInfo->GetModelIndex("models/custom/weapons/v_rif_ak47.mdl");
-
+				
+				//if (*activeWeapon->GetItemDefinitionIndex() == ItemDefinitionIndex::WEAPON_KNIFE)
+				//{
+				//	PrecacheModel(XORSTR("models/weapons/v_minecraft_pickaxe.mdl"));
+				//	*viewmodel->GetModelIndex() = modelInfo->GetModelIndex(XORSTR("models/weapons/v_minecraft_pickaxe.mdl"));
+				//}
+				
 		if (!entityList->GetClientEntityFromHandle((void *) localplayer->GetWearables()))
 		{
 			for (ClientClass *pClass = client->GetAllClasses(); pClass; pClass = pClass->m_pNext)

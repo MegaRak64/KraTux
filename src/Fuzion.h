@@ -8,7 +8,9 @@
 #include "interfaces.h"
 #include "Utils/util.h"
 
-namespace Fuzion
+namespace random_epta
 {
 	void SelfShutdown();
+	extern void *prev, *curr, *next;
+	extern char buildID[33];
 }

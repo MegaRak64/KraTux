@@ -404,6 +404,17 @@ namespace Settings
 				extern bool open;
 				extern bool reload; // True on config load, used to change Window Position.
 			}
+			
+			namespace Custommodel
+			{
+				extern int posX;
+				extern int posY;
+				extern int sizeX;
+				extern int sizeY;
+				extern bool open;
+				extern bool reload; // True on config load, used to change Window Position.
+			}
+			
 			namespace Config
 			{
 				extern int posX;
@@ -1055,6 +1066,20 @@ namespace Settings
 		namespace Models
 		{
 			extern bool enabled;
+			namespace Players
+			{
+				extern bool enabled;
+				namespace enemyteam
+				{
+					extern bool enabled;
+					extern char colgate[127];
+				}
+				namespace yourteam
+				{
+					extern bool enabled;
+					extern char colgate[127];
+				}
+			}
 		}
 
 		extern std::unordered_map<ItemDefinitionIndex, AttribItem_t, Util::IntHash<ItemDefinitionIndex>> skinsCT;

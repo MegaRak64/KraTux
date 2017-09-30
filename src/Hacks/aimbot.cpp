@@ -75,7 +75,7 @@ static xdo_t *xdo = xdo_new(NULL);
 
 int Aimbot::targetAimbot = -1;
 const int headVectors = 11;
-
+/*
 std::unordered_map<Hitbox, std::vector<const char*>, Util::IntHash<Hitbox>> hitboxes = {
 		{ Hitbox::HITBOX_HEAD, { "head_0" } },
 		{ Hitbox::HITBOX_NECK, { "neck_0" } },
@@ -84,7 +84,7 @@ std::unordered_map<Hitbox, std::vector<const char*>, Util::IntHash<Hitbox>> hitb
 		{ Hitbox::HITBOX_LEGS, { "leg_upper_L", "leg_upper_R", "leg_lower_L", "leg_lower_R", "ankle_L", "ankle_R" } },
 		{ Hitbox::HITBOX_ARMS, { "hand_L", "hand_R", "arm_upper_L", "arm_lower_L", "arm_upper_R", "arm_lower_R" } },
 };
-
+*/
 std::unordered_map<ItemDefinitionIndex, AimbotWeapon_t, Util::IntHash<ItemDefinitionIndex>> Settings::Aimbot::weapons = {
 		{ ItemDefinitionIndex::INVALID, { false, false, false, false, false, false, false, 700, Bone::BONE_HEAD, ButtonCode_t::MOUSE_MIDDLE, false, false, 1.0f, SmoothType::SLOW_END, false, 0.0f, false, 0.0f, false, 0.5f, true, 180.0f, false, 25.0f, false, false, 2.0f, 2.0f, false, false, false, false, false, false, false, false, false, false, 0.1f, false, 10.0f, false, false, 5.0f, false, false, 100, 0.5f } },
 };
@@ -760,10 +760,10 @@ void Aimbot::AutoShoot(C_BasePlayer* player, C_BaseCombatWeapon* activeWeapon, C
 		spreadValue *= 100.0f / GetDistanceForward(localplayer, cmd->viewangles, cmd);
 	if( Settings::Aimbot::SpreadLimit::enabled && ((activeWeapon->GetSpread() + activeWeapon->GetInaccuracy()) > spreadValue))
 		return;
-/*
-	if (Settings::Aimbot::HitChance::enabled && !Aimbot::HitChance(player->GetBonePosition(bone), !Settings::Aimbot::friendly, localplayer))
+
+	if (Settings::Aimbot::HitChance::enabled && !Aimbot::HitChance(player->GetBonePosition((int) Settings::Aimbot::bone), !Settings::Aimbot::friendly, localplayer))
 		return;
-*/
+
 	if( Settings::Aimbot::AutoShoot::velocityCheck && localplayer->GetVelocity().Length() > (activeWeapon->GetCSWpnData()->GetMaxPlayerSpeed() / 3) )
 		return;
 

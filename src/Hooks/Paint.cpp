@@ -22,4 +22,10 @@ void Hooks::Paint(void* thisptr, PaintMode_t mode)
 
 		FinishDrawing(surface);
 	}
+
+}
+
+void Hooks::PaintImGui()
+{
+	
 }

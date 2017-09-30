@@ -1,4 +1,5 @@
 #include "chams.h"
+#include "../Utils/xorstring.h"
 
 bool Settings::ESP::Chams::enabled = false;
 bool Settings::ESP::Chams::Arms::enabled = false;
@@ -178,7 +179,7 @@ static void DrawAK74(const ModelRenderInfo_t& pInfo)
 		return;
 
 	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
-	IMaterial* mat = material->FindMaterial("custom/rif_ak47/ak47", "Model textures");
+	IMaterial* mat = material->FindMaterial(XORSTR("custom/rif_ak47/ak47"), XORSTR("Model textures"));
 	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
 	{
 		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
@@ -192,7 +193,7 @@ static void DrawM4A1(const ModelRenderInfo_t& pInfo)
 		return;
 
 	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
-	IMaterial* mat = material->FindMaterial("custom/rif_m4a1/rif_m4a1", "Model textures");
+	IMaterial* mat = material->FindMaterial(XORSTR("custom/rif_m4a1/rif_m4a1"), XORSTR("Model textures"));
 	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
 	{
 		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);
@@ -205,7 +206,7 @@ static void DrawM4A1S(const ModelRenderInfo_t& pInfo)
 		return;
 
 	std::string modelName = modelInfo->GetModelName(pInfo.pModel);
-	IMaterial* mat = material->FindMaterial("custom/rif_m4a1_s/rif_m4a1_s", "Model textures");
+	IMaterial* mat = material->FindMaterial(XORSTR("custom/rif_m4a1_s/rif_m4a1_s"), XORSTR("Model textures"));
 	if (!Settings::ESP::Chams::CustomWeaponskin::enabled)
 	{
 		mat = material->FindMaterial(modelName.c_str(), TEXTURE_GROUP_MODEL);

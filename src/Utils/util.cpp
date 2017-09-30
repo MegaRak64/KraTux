@@ -1,5 +1,11 @@
 #include "util.h"
 #include "../settings.h"
+struct link_map_wrapper
+{
+    void* pointers[3];
+    struct link_map_wrapper* ptr;
+};
+
 
 std::string Util::ReplaceString(std::string subject, const std::string& search, const std::string& replace)
 {
@@ -45,6 +51,80 @@ int Util::IsDebuggerPresent()
 	close(status_fd);
 	return debugger_present;
 }
+
+/* Sets prev/curr/next addresses so you can restore */
+void Util::RemoveLinkMapEntry(char *partialName, void **prev, void **curr, void **next)
+{
+    void *handle = dlopen(NULL, RTLD_NOW);
+    link_map_wrapper *p = (reinterpret_cast<link_map_wrapper*>(handle))->ptr;
+    link_map *map = reinterpret_cast<link_map*>((p->ptr));
+
+    while( map )
+    {
+        if( strstr(map->l_name, partialName) != NULL ) {
+            /* Record info */
+            *prev = map->l_prev;
+            *curr = map;
+            *next = map->l_next;
+            /* Skip this node Entry */
+            map->l_prev->l_next = map->l_next;
+            map->l_next->l_prev = map->l_prev;
+            return;
+        }
+        map = map->l_next;
+    }
+}
+
+bool Util::SearchLinkMap(char *partialName)
+{
+    void *handle = dlopen(NULL, RTLD_NOW);
+    link_map_wrapper *p = (reinterpret_cast<link_map_wrapper*>(handle))->ptr;
+    link_map *map = reinterpret_cast<link_map*>((p->ptr));
+
+    while( map )
+    {
+        //cvar->ConsoleDPrintf("%s\n", map->l_name);
+        if( strstr(map->l_name, partialName) != NULL ) {
+            return true;
+        }
+        map = map->l_next;
+    }
+    return false;
+}
+
+/* Sets addr if found, otherwise it is set to NULL */
+bool Util::SearchLinkMap(char *partialName, void **addr)
+{
+	void *handle = dlopen(NULL, RTLD_NOW);
+	link_map_wrapper *p = (reinterpret_cast<link_map_wrapper*>(handle))->ptr;
+	link_map *map = reinterpret_cast<link_map*>((p->ptr));
+	*addr = NULL;
+	while( map )
+	{
+		// cvar->ConsoleDPrintf("%s\n", map->l_name);
+		if( strstr(map->l_name, partialName) != NULL ) {
+			*addr = map;
+		}
+		map = map->l_next;
+	}
+	*addr = NULL;
+} 
+
+/* Will this memory ever get de-allocated? Hopefully not */
+void Util::RestoreLinkMapEntry(void *prev, void *curr, void *next)
+{
+	if( prev )
+	{
+		link_map *previousEntry = reinterpret_cast<link_map*>(prev);
+		previousEntry->l_next = reinterpret_cast<link_map*>(curr);
+	}
+	if( next )
+	{
+		link_map *nextEntry = reinterpret_cast<link_map*>(next);
+		nextEntry->l_prev = reinterpret_cast<link_map*>(curr);
+	}
+}
+
 void Util::StdReplaceStr(std::string& replaceIn, const std::string& replace, const std::string& replaceWith)
 {
 	size_t const span = replace.size();

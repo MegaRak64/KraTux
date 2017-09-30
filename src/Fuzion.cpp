@@ -5,11 +5,11 @@
 
 static EventListener* eventListener = nullptr;
 // The Below Line is Set by the Build script. Keep this on Line 8.
-char buildID[] = "qGD9Y0wnkqJ2NX8T7BgL9BqbgirqBtnQ"; // Line Set by build script
+char random_epta::buildID[] = "j4SY1635GkgNjEUgs1TPlK5FHGiYhPep"; // Line Set by build script
 // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-bool preload = false;
-bool isShuttingDown = false;
-
+static bool preload = false;
+static bool isShuttingDown = false;
+void *random_epta::prev = NULL,*random_epta::curr = NULL,*random_epta::next = NULL;
 void MainThread()
 {
 	if( preload )
@@ -48,7 +48,7 @@ void MainThread()
 	Hooker::FindCrosshairWeaponTypeCheck();
 	Hooker::HookSwapWindow();
 	Hooker::HookPollEvent();
-
+	
 
 	if( preload )
 	{
@@ -56,7 +56,7 @@ void MainThread()
 		bool found = false;
 		for (int i = 0; environ[i]; i++)
 		{
-			if (strstr(environ[i], buildID) != NULL)
+			if (strstr(environ[i], random_epta::buildID) != NULL)
 			{
 				found = true;
 			}
@@ -100,7 +100,7 @@ void MainThread()
 		found = false;
 		FILE *maps = fopen(XORSTR("/proc/self/maps"), "r");
 		while (fgets(buffer, PATH_MAX, maps)) {
-			if (strstr(buffer, buildID) != NULL)
+			if (strstr(buffer, random_epta::buildID) != NULL)
 				found = true;
 		}
 		fclose(maps);
@@ -166,9 +166,9 @@ void MainThread()
 	soundVMT->HookVM((void*) Hooks::EmitSound2, 6);
 	soundVMT->ApplyVMT();
 
-	eventListener = new EventListener({ "cs_game_disconnected", "player_connect_full", "player_death", "player_hurt", "switch_team" });
+	eventListener = new EventListener({ XORSTR("cs_game_disconnected"), XORSTR("player_connect_full"), XORSTR("player_death"), XORSTR("player_hurt"), XORSTR("switch_team") });
 
-	if (ModSupport::current_mod != ModType::CSCO && Hooker::HookRecvProp("CBaseViewModel", "m_nSequence", SkinChanger::sequenceHook))
+	if (ModSupport::current_mod != ModType::CSCO && Hooker::HookRecvProp(XORSTR("CBaseViewModel"), XORSTR("m_nSequence"), SkinChanger::sequenceHook))
 		SkinChanger::sequenceHook->SetProxyFunction((RecvVarProxyFn) SkinChanger::SetViewModelSequence);
 
 	//NetVarManager::DumpNetvars();
@@ -181,7 +181,14 @@ void MainThread()
 	srand(time(NULL)); // Seed random # Generator so we can call rand() later
 
 	AntiAim::LuaInit();
-
+	
+	//snprintf(random_epta::buildID, PATH_MAX, "/%s", buildID);
+	Util::RemoveLinkMapEntry(random_epta::buildID, &random_epta::prev, &random_epta::curr, &random_epta::next); // This Breaks uload. Need to restore linked list first.
+	if( Util::SearchLinkMap(random_epta::buildID) )
+    {
+    cvar->ConsoleColorPrintf(ColorRGBA(200, 0, 0), XORSTR( "Warning! .so file did not get removed in link_map\n" ) );
+    }
+	
 	if( preload )
 	{
 		while( !isShuttingDown )
@@ -190,7 +197,7 @@ void MainThread()
 			if( Util::IsDebuggerPresent() != 0 )
 			{
 				cvar->ConsoleColorPrintf(ColorRGBA(225, 0, 0), XORSTR("DEBUGGER DETECTED! EXITING FUZION\n"));
-				Fuzion::SelfShutdown();
+				random_epta::SelfShutdown();
 			}
 		}
 	}
@@ -201,13 +208,13 @@ int __attribute__((constructor)) Startup()
 	// Search in Environment Memory for our buildID before purging environ memory
 	for(int i = 0; environ[i]; i++)
 	{
-		if(strstr(environ[i], buildID) != NULL)
+		if(strstr(environ[i], random_epta::buildID) != NULL)
 		{
 			preload = true;
-			if( !Preload::Startup(buildID) )
+			if( !Preload::Startup(random_epta::buildID) )
 			{
 				char fd[PATH_MAX];
-				snprintf(fd, sizeof(fd), XORSTR("/tmp/%s.log"), buildID);
+				snprintf(fd, sizeof(fd), XORSTR("/tmp/%s.log"), random_epta::buildID);
 				FILE *log = fopen(fd, "w");
 				fprintf(log, XORSTR("Could not find functions to hook in Preload::Startup(). Exiting.\n"));
 				fclose(log);
@@ -233,10 +240,10 @@ void __attribute__((destructor)) Shutdown()
 
 	SDL2::UnhookWindow();
 	SDL2::UnhookPollEvent();
-	if( !preload )
-	{
-		ImGui::Shutdown();
-	}
+	//if( !preload )
+	//{
+	//	ImGui::Shutdown();
+	//}
 
 	Preload::Cleanup();
 	AntiAim::LuaCleanup();
@@ -272,7 +279,7 @@ void __attribute__((destructor)) Shutdown()
 
 	cvar->ConsoleColorPrintf(ColorRGBA(255, 0, 0), XORSTR("Fuzion Unloaded successfully.\n"));
 }
-void Fuzion::SelfShutdown()
+void random_epta::SelfShutdown()
 {
 	// Beta Feature.
 	// Does not Correctly/Fully Unload yet.
